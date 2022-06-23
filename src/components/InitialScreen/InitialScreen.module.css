@@ -1,0 +1,30 @@
+.InitialForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.InitialFormScreen {
+  width: 60vw;
+  margin: auto;
+}
+
+.SubmitButton {
+  width: 100px;
+  background-color: rgb(0, 213, 255) !important;
+  margin-top: 100px;
+}
+
+.FormFieldContainer {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.FormField {
+  width: 100%;
+}
+
+@media screen and (max-width: 720px) {
+  .InitialFormScreen {
+    width: 85vw;
+  }
+}

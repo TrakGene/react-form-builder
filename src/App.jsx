@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+// Styles
+import "./App.css";
+
+// Libraries
+import { createContext, useState } from "react";
+
+// Components
+import InitialScreen from "./components/InitialScreen";
+import FormBuilderPage from "./components/formBuilderPage";
+
+// The total `Structure` is named as FormData (ContextAPI)
+export const FormData = createContext({});
 
 function App() {
+  const formData = useState({});
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // Passing both the initial values and the setter function
+    <FormData.Provider value={formData}>
+      {!Object.keys(formData[0]).length ? (
+        <InitialScreen />
+      ) : (
+        <FormBuilderPage />
+      )}
+    </FormData.Provider>
   );
 }
 
