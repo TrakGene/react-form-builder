@@ -16,10 +16,9 @@ function GroupElement({ groupId, data }) {
   const [, drop] = useDrop({
     accept: "tool",
     drop: (item) => {
-      console.log(item);
+      handleAddFormElement(item);
     },
     collect: (monitor) => ({
-      isOver: monitor.isOver(),
       hover: monitor.isOver({ shallow: true }),
     }),
   });
@@ -34,14 +33,31 @@ function GroupElement({ groupId, data }) {
     });
   };
 
+  const handleAddFormElement = (item) => {
+    setPopupContext({
+      show: true,
+      type: POPUP_TYPES.ADD_FORM_ELEMENT,
+      data: { element: item.toolName, id: groupId },
+    });
+  };
+
   return (
     <div id={groupId} className={styles.GroupElement} ref={drop}>
       <div>
-        <h2>{data.title}</h2>
-        <p>{data.description}</p>
+        <h2 style={{ margin: "0px" }}>{data.title}</h2>
+        <p style={{ margin: "0px" }}>{data.description}</p>
       </div>
-      <div style={{ margin: "20px" }}>
-        <Button className={styles.AddGroupButton} onClick={handleAddGroup}>
+      <div style={{ marginTop: "10px" }}>
+        {data.formElements.map((element, index) => {
+          return <div key={`FormElement_${index}`}>{element}</div>;
+        })}
+      </div>
+      <div style={{ margin: "10px", textAlign: "center" }}>
+        <Button
+          variant="outlined"
+          className={styles.AddGroupButton}
+          onClick={handleAddGroup}
+        >
           ADD GROUP
         </Button>
       </div>

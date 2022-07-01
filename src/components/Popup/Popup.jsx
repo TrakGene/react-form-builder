@@ -7,6 +7,7 @@ import Modal from "@mui/material/Modal";
 
 // Popup Types
 import AddGroup from "./types/AddGroup/AddGroup";
+import AddFormElement from "./types/AddFormElement/AddFormElement";
 
 // Constants
 import { POPUP_TYPES } from "../../constants/popupTypes";
@@ -38,6 +39,9 @@ function Popup() {
       >
         <Box sx={style}>
           {popupContext.type === POPUP_TYPES.ADD_GROUP && <AddGroup />}
+          {popupContext.type === POPUP_TYPES.ADD_FORM_ELEMENT && (
+            <AddFormElement />
+          )}
         </Box>
       </Modal>
     </div>

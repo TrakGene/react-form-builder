@@ -51,6 +51,10 @@ function AddGroup() {
     setPopupContext({ ...popupContext, show: false });
   };
 
+  const handleClose = async () => {
+    setPopupContext({ ...popupContext, show: false });
+  };
+
   // Formik
   const formik = useFormik({
     initialValues: initialFormValues,
@@ -92,7 +96,16 @@ function AddGroup() {
               />
             </div>
           ))}
-          <div style={{ marginTop: "10px" }}>
+          <div
+            style={{
+              marginTop: "20px",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <div style={{ cursor: "pointer" }} onClick={handleClose}>
+              <p>CANCEL</p>
+            </div>
             <Button
               variant="contained"
               type="submit"

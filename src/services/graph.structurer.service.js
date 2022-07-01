@@ -51,6 +51,7 @@ export default class GraphStructureService {
     initialGroupStructure.description = initialFormValues.FormDescription;
     initialGroupStructure.renderType = renderType || "default";
     initialGroupStructure.condition = condition || [];
+    initialGroupStructure.formElements = [];
     initialGroupStructure.groupsConnectedTo = [];
     initialGroupStructure.previousConnections = [previousConnection];
     return initialGroupStructure;
