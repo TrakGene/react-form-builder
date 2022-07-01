@@ -4,7 +4,6 @@ import { PopupContext } from "../../App";
 // MUI
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import Typography from "@mui/material/Typography";
 
 // Popup Types
 import AddGroup from "./types/AddGroup/AddGroup";

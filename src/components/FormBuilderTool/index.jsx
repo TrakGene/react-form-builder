@@ -1,14 +1,10 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
-import Xarrow from "react-xarrows";
-
+import React from "react";
 // Components
 import Tool from "../Tool/Tool";
 import Canvas from "../Canvas/Canvas";
 
 // Styles
 import styles from "./FormBuilderTool.module.css";
-import GraphStructureService from "../../services/graph.structurer.service";
-import { FormData } from "../../App";
 
 function FormBuilderTool() {
   const formTools = ["Tool 1", "Tool 2", "Tool 3", "Tool 4", "Tool 5"];

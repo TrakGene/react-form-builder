@@ -31,15 +31,20 @@ const getGraphStepConnections = (schema, currentStep, connectionsArray) => {
     const groupId = currentStep[i];
     const connectedTo = schema[groupId]["groupsConnectedTo"];
     for (let j = 0; j < connectedTo.length; j++) {
-      connectionsArray.push([groupId, connectedTo[j]]);
-      nextStep.push(connectedTo[j]);
+      connectionsArray.push([groupId, connectedTo[j].id]);
+      nextStep.push(connectedTo[j].id);
     }
   }
   getGraphStepConnections(schema, nextStep, connectionsArray);
 };
 
 export default class GraphStructureService {
-  async initializeEmptyGroup({ initialFormValues, renderType, condition }) {
+  async initializeEmptyGroup({
+    previousConnection,
+    initialFormValues,
+    renderType,
+    condition,
+  }) {
     let initialGroupStructure = { ...INITIAL_GROUP_STRUCTURE };
     initialGroupStructure.id = uuidv4();
     initialGroupStructure.title = initialFormValues.FormTitle;
@@ -47,12 +52,16 @@ export default class GraphStructureService {
     initialGroupStructure.renderType = renderType || "default";
     initialGroupStructure.condition = condition || [];
     initialGroupStructure.groupsConnectedTo = [];
+    initialGroupStructure.previousConnections = [previousConnection];
     return initialGroupStructure;
   }
 
   async initializeGraphForm(initialFormValues) {
     let initialStructure = INITIAL_FORM_STRUCTURE;
-    const newGroup = await this.initializeEmptyGroup({ initialFormValues });
+    const newGroup = await this.initializeEmptyGroup({
+      initialFormValues,
+      previousConnection: null,
+    });
     initialStructure.title = initialFormValues.FormTitle;
     initialStructure.description = initialFormValues.FormDescription;
     initialStructure.startingGroupId = newGroup.id;

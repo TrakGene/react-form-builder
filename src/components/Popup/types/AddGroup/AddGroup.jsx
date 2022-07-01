@@ -39,11 +39,13 @@ function AddGroup() {
         FormTitle: values.GroupHeader,
         FormDescription: values.GroupDescription,
       },
+      previousConnection: popupContext.data.id,
     });
     let updateFormData = { ...formData };
-    updateFormData.schema[popupContext.data.id].groupsConnectedTo.push(
-      newGroup.id
-    );
+    updateFormData.schema[popupContext.data.id].groupsConnectedTo.push({
+      id: newGroup.id,
+      renderType: "default",
+    });
     updateFormData.schema[newGroup.id] = { ...newGroup };
     setFormData(updateFormData);
     setPopupContext({ ...popupContext, show: false });

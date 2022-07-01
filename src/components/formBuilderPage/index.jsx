@@ -1,16 +1,11 @@
 // Libraries
-import { Fragment, useContext, useEffect, useState } from "react";
-import Xarrow from "react-xarrows";
+import { Fragment } from "react";
 
 // Styles
 import styles from "./FormBuilderPage.module.css";
 
 // Components
 import FormBuilderTool from "../FormBuilderTool";
-import GraphStructureService from "../../services/graph.structurer.service";
-
-// ContextAPI
-import { FormData } from "../../App";
 
 function FormBuilderPage() {
   return (

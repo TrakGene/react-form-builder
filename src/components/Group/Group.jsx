@@ -9,11 +9,11 @@ function Group({ groupIdArray, data }) {
       {groupIdArray.map((groupId) => {
         let visited = visitedContext;
         setVisitedContext(visited);
-        visited[groupId] = visited[groupId] ? visited[groupId] + 1 : 0;
-        if (visited[groupId] === 2)
+        visited[groupId.id] = visited[groupId.id] ? visited[groupId] + 1 : 0;
+        if (visited[groupId.id] === 2)
           return <React.Fragment key={new Date()}></React.Fragment>;
         return (
-          <React.Fragment key={`${groupId}`}>
+          <React.Fragment key={`${groupId.id}`}>
             <div
               style={{
                 display: "flex",
@@ -24,9 +24,9 @@ function Group({ groupIdArray, data }) {
                 borderRadius: "10px",
               }}
             >
-              <GroupElement groupId={groupId} data={data[`${groupId}`]} />
+              <GroupElement groupId={groupId.id} data={data[`${groupId.id}`]} />
               <Group
-                groupIdArray={data[`${groupId}`].groupsConnectedTo}
+                groupIdArray={data[`${groupId.id}`].groupsConnectedTo}
                 data={data}
               />
             </div>

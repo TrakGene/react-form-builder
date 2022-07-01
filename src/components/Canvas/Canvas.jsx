@@ -24,7 +24,10 @@ function Canvas() {
 
   return (
     <div className={styles.Canvas}>
-      <Group data={formData.schema} groupIdArray={[formData.startingGroupId]} />
+      <Group
+        data={formData.schema}
+        groupIdArray={[{ id: formData.startingGroupId, type: "default" }]}
+      />
       <Xwrapper>
         {connections.map((connection, index) => {
           return (

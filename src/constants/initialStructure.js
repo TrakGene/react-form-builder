@@ -13,4 +13,5 @@ export const INITIAL_GROUP_STRUCTURE = {
   condition: [],
   groupsConnectedTo: [],
   formElements: [],
+  previousConnections: [],
 };
