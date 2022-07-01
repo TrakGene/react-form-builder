@@ -1,0 +1,108 @@
+{
+  "formId": "Form_1",
+  "title": "Sample Title",
+  "description": "Sample Description",
+  "startingPageId": "pageId1",
+  "schema": {
+    "pageId1": {
+      "pageHeading": "Page 1",
+      "pageDescription?": "Page 1 Description",
+      "renderType": "default",
+      "condition?": [],
+      "pageConnectedTo": ["pageId2", "pageId3", "pageId6"],
+      "formElements": [
+        {
+          "formElementId": "FormElement_1_1",
+          "label": "Input 1",
+          "formElementType": "input",
+          "options?": [],
+          "description?": "Input 1 Description",
+          "validation": [
+            {
+              "type": "required",
+              "message": "Input 1 is required"
+            }
+          ]
+        },
+        {
+          "formElementId": "FormElement_1_2",
+          "label": "Input 2",
+          "formElementType": "checkbox",
+          "options?": ["Option 1", "Option 2", "Option 3"],
+          "description?": "Input 1 Description",
+          "validation": []
+        },
+        {
+          "formElementId": "FormElement_1_3",
+          "label": "Subheading 1",
+          "formElementType": "Subheading",
+          "options?": [],
+          "description?": "Input 1 Description",
+          "validation": []
+        }
+      ]
+    },
+    "pageId2": {
+      "pageHeading": "Page 2",
+      "pageDescription?": "Page 2 Description",
+      "renderType": "conditional",
+      "condition?": [
+        {
+          "type": "match",
+          "formElementId": "FormElement_1_1",
+          "value?": "Male"
+        }
+      ],
+      "pageConnectedTo": [],
+      "formElements": [
+        {
+          "formElementId": "FormElement_2_1",
+          "label": "Input 3",
+          "formElementType": "inputPara",
+          "options?": [],
+          "description?": "Input 3 Description",
+          "validation": [
+            {
+              "type": "required",
+              "message": "Input 3 is required"
+            }
+          ]
+        }
+      ]
+    },
+    "pageId3": {
+      "pageHeading": "Page 3",
+      "pageDescription?": "Page 3 Description",
+      "renderType": "default",
+      "condition?": [],
+      "pageConnectedTo": ["pageId4", "pageId5"],
+      "formElements": []
+    },
+    "pageId4": {
+      "pageHeading": "Page 4",
+      "pageDescription?": "Page 4 Description",
+      "renderType": "default",
+      "condition?": [],
+      "pageConnectedTo": [],
+      "formElements": []
+    },
+    "pageId5": {
+      "pageHeading": "Page 5",
+      "pageDescription?": "Page 5 Description",
+      "renderType": "default",
+      "condition?": [],
+      "pageConnectedTo": [],
+      "formElements": []
+    },
+    "pageId6": {
+      "pageHeading": "Page 6",
+      "pageDescription?": "Page 5 Description",
+      "renderType": "default",
+      "condition?": [],
+      "pageConnectedTo": ["pageId5"],
+      "formElements": []
+    }
+  },
+  "createdAt": "2018-01-01T00:00:00.000Z",
+  "updatedAt": "2018-01-01T00:00:00.000Z"
+}

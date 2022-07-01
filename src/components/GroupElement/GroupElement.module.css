@@ -1,0 +1,13 @@
+.GroupElement {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 20px;
+  margin: 10px;
+  margin-top: 20px;
+  border-radius: 10px;
+  min-width: 200px;
+}
+
+.AddGroupButton {
+  background-color: rgb(0, 213, 255) !important;
+  margin: 10px;
+}

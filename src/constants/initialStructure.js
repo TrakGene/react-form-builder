@@ -7,10 +7,10 @@ export const INITIAL_FORM_STRUCTURE = {
 };
 
 export const INITIAL_GROUP_STRUCTURE = {
-  pageHeading: "",
-  pageDescription: "",
+  title: "",
+  description: "",
   renderType: "",
   condition: [],
-  pageConnectedTo: [],
+  groupsConnectedTo: [],
   formElements: [],
 };

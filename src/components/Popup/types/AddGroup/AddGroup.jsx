@@ -1,67 +1,74 @@
 // ContextAPI
-import { FormData } from "../../App";
+import { FormData, PopupContext } from "../../../../App";
 
 // Libraries
 import React, { Fragment, useContext } from "react";
 import { useFormik } from "formik";
-import * as yup from "yup";
 
 // Components
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
 // styles
-import styles from "./InitialScreen.module.css";
+import styles from "./AddGroup.module.css";
 
 // Dependencies
-import GraphStructureService from "../../services/graph.structurer.service";
+import GraphStructureService from "../../../../services/graph.structurer.service";
 
 const formFields = [
-  { id: "FormTitle", label: "Form Title", type: "text" },
-  { id: "FormDescription", label: "Form Description", type: "text" },
+  { id: "GroupHeader", label: "Group Header", type: "text" },
+  { id: "GroupDescription", label: "Group Description", type: "text" },
 ];
 const initialFormValues = {
-  FormTitle: "",
-  FormDescription: "",
+  GroupHeader: "",
+  GroupDescription: "",
 };
 
-// Initial Validation
-const initialValidationSchema = yup.object({
-  FormTitle: yup
-    .string("Enter the form title")
-    .required("This field must be specified"),
-  FormDescription: yup
-    .string("Enter the form title")
-    .required("This field must be specified"),
-});
-
-function InitialScreen() {
+function AddGroup() {
   // Dependencies
   const gs = new GraphStructureService();
 
-  // ContextAPI
-  const [, setFormData] = useContext(FormData);
+  //   ContextAPI
+  const [formData, setFormData] = useContext(FormData);
+  const [popupContext, setPopupContext] = useContext(PopupContext);
 
   // handleSubmit
   const handleFormSubmit = async (values) => {
-    setFormData(await gs.initializeGraphForm(values));
+    const newGroup = await gs.initializeEmptyGroup({
+      initialFormValues: {
+        FormTitle: values.GroupHeader,
+        FormDescription: values.GroupDescription,
+      },
+    });
+    let updateFormData = { ...formData };
+    updateFormData.schema[popupContext.data.id].groupsConnectedTo.push(
+      newGroup.id
+    );
+    updateFormData.schema[newGroup.id] = { ...newGroup };
+    setFormData(updateFormData);
+    setPopupContext({ ...popupContext, show: false });
   };
 
   // Formik
   const formik = useFormik({
     initialValues: initialFormValues,
-    validationSchema: initialValidationSchema,
-    onSubmit: handleFormSubmit,
+    onSubmit: (values) => {
+      handleFormSubmit(values);
+    },
   });
 
   return (
     <Fragment>
       <div className={styles.InitialFormScreen} onSubmit={handleFormSubmit}>
-        <h2>Pre-clinic Form Builder</h2>
+        <h2>Add New Group</h2>
+        <p>
+          Add new group of inputs and add conditions to make the form more
+          personalized
+        </p>
         <form onSubmit={formik.handleSubmit} className={styles.InitialForm}>
           {formFields.map((formField, index) => (
             <div
-              key={`Initial_Form_Field_${index}`}
+              key={`New_Group_Detail_${index}`}
               className={styles.FormFieldContainer}
             >
               <TextField
@@ -98,4 +105,4 @@ function InitialScreen() {
   );
 }
 
-export default InitialScreen;
+export default AddGroup;
