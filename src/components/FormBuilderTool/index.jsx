@@ -6,8 +6,11 @@ import Canvas from "../Canvas/Canvas";
 // Styles
 import styles from "./FormBuilderTool.module.css";
 
+// Constants
+import { getUserSideFormTypes } from "../../constants/formTypes";
+
 function FormBuilderTool() {
-  const formTools = ["Tool 1", "Tool 2", "Tool 3", "Tool 4", "Tool 5"];
+  const formTools = getUserSideFormTypes();
   return (
     <div className={styles.FomBuilderContainer}>
       <div className={styles.FormCanvas}>
@@ -16,7 +19,7 @@ function FormBuilderTool() {
       <div className={styles.FormToolsContainer}>
         {formTools.map((tool, index) => (
           <div key={`Tool_${index}`}>
-            <Tool toolName={tool} />
+            <Tool toolName={tool.value} />
           </div>
         ))}
       </div>

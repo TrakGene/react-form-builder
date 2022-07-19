@@ -1,34 +1,49 @@
+import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 // ContextAPI
 import { FormData, PopupContext } from "../../../../App";
+
+// Constants
+import {
+  FORM_TYPES,
+  getFormType,
+  getUserSideFormTypes,
+} from "../../../../constants/formTypes";
+
+// Components
+import TextInput from "../formTypes/TextInput/TextInput";
 
 // Styles
 import styles from "./AddFormElement.module.css";
 
 function AddFormElement() {
   const [popupContext, setPopupContext] = useContext(PopupContext);
-  const [formData, setFormData] = useContext(FormData);
+  const [formType, setFormType] = useState(popupContext.data.type);
+  const [formTypesArray] = useState(getUserSideFormTypes());
 
-  const handleAddFormElement = async () => {
-    const updatedFormData = { ...formData };
-    updatedFormData.schema[popupContext.data.id].formElements.push(
-      popupContext.data.element
-    );
-    setFormData(updatedFormData);
-    setPopupContext({ ...popupContext, show: false });
-  };
   return (
     <div>
-      AddFormElement {popupContext.data.element}
-      <Button
+      <p>Select the form type</p>
+      <Select
         variant="outlined"
-        className={styles.SubmitButton}
-        onClick={handleAddFormElement}
+        placeholder="Form Type"
+        value={formType}
+        style={{ width: "100%" }}
+        onChange={(e) => {
+          setFormType(e.target.value);
+        }}
       >
-        ADD
-      </Button>
+        {formTypesArray.map((ft, index) => (
+          <MenuItem key={`FormType_${index}`} value={ft.key}>
+            {ft.value}
+          </MenuItem>
+        ))}
+      </Select>
+      {formType === FORM_TYPES.TEXT_INPUT && (
+        <TextInput edit={popupContext.edit} />
+      )}
     </div>
   );
 }

@@ -83,4 +83,14 @@ export default class GraphStructureService {
     getGraphStepConnections(data.schema, currentStep, connectionsArray);
     return connectionsArray;
   };
+
+  deleteFormElement = (groupId, formId, data) => {
+    const updatedForms = [];
+    data.schema[groupId].formElements.forEach((form) => {
+      if (form.id !== formId) updatedForms.push(form);
+    });
+    data.schema[groupId].formElements = updatedForms;
+    console.log(data);
+    return { ...data };
+  };
 }

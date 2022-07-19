@@ -10,7 +10,6 @@ import Group from "../Group/Group";
 
 function Canvas() {
   const [formData] = useContext(FormData);
-
   return (
     <div className={styles.Canvas}>
       <Group

@@ -1,18 +1,23 @@
 import { Button } from "@material-ui/core";
 import React, { useContext } from "react";
+import { useState } from "react";
 import { useDrop } from "react-dnd";
 
 // ContextAPI
-import { PopupContext } from "../../App";
+import { FormData, PopupContext } from "../../App";
+import { getFormType } from "../../constants/formTypes";
 
 // Constants
 import { POPUP_TYPES } from "../../constants/popupTypes";
+import FormComponent from "../FormComponent/FormComponent";
 
 // Styles
 import styles from "./GroupElement.module.css";
 
-function GroupElement({ groupId, data }) {
+function GroupElement({ groupId }) {
   const [popupContext, setPopupContext] = useContext(PopupContext);
+  const [formDataContext] = useContext(FormData);
+  const [data] = useState(formDataContext.schema[groupId]);
   const [, drop] = useDrop({
     accept: "tool",
     drop: (item) => {
@@ -37,7 +42,10 @@ function GroupElement({ groupId, data }) {
     setPopupContext({
       show: true,
       type: POPUP_TYPES.ADD_FORM_ELEMENT,
-      data: { element: item.toolName, id: groupId },
+      data: {
+        id: groupId,
+        type: getFormType(item.toolName),
+      },
     });
   };
 
@@ -49,7 +57,11 @@ function GroupElement({ groupId, data }) {
       </div>
       <div style={{ marginTop: "10px" }}>
         {data.formElements.map((element, index) => {
-          return <div key={`FormElement_${index}`}>{element}</div>;
+          return (
+            <div key={`FormElement_${index}`}>
+              <FormComponent element={element} groupId={groupId} />
+            </div>
+          );
         })}
       </div>
       <div style={{ margin: "10px", textAlign: "center" }}>
