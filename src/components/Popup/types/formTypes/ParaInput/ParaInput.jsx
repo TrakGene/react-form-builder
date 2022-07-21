@@ -71,7 +71,7 @@ function ParaInput({ edit }) {
     <Fragment>
       <div className={styles.InitialFormScreen} onSubmit={handleFormSubmit}>
         <h2>Paragraph Input</h2>
-        <p>Add a text Input</p>
+        <p>Add a Paragraph Input</p>
         <form onSubmit={formik.handleSubmit} className={styles.InitialForm}>
           <TextField
             variant="outlined"

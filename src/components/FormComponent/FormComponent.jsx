@@ -24,7 +24,7 @@ function FormComponent({ element, groupId }) {
       data: {
         id: groupId,
         formData: element,
-        type: FORM_TYPES.TEXT_INPUT,
+        type: element.type,
       },
       show: true,
       edit: true,

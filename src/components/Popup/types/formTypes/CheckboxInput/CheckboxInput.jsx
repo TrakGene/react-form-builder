@@ -2,7 +2,7 @@
 import { FormData, PopupContext } from "../../../../../App";
 
 // Libraries
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -49,6 +49,9 @@ function CheckboxInput({ edit }) {
       options: [],
       isRequired: false,
     };
+    value.label = value.label || "";
+    value.options = value.options || [];
+    value.isRequired = value.isRequired || false;
     return value;
   };
 
@@ -121,7 +124,9 @@ function CheckboxInput({ edit }) {
     },
   });
 
-  console.log(formik.errors);
+  useEffect(() => {
+    setOptionsList(formik.values.options);
+  }, []);
 
   return (
     <Fragment>

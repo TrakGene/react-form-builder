@@ -25,6 +25,8 @@ function AddFormElement() {
   const [formType, setFormType] = useState(popupContext.data.type);
   const [formTypesArray] = useState(getUserSideFormTypes());
 
+  console.log(popupContext);
+
   return (
     <div>
       <p>Select the form type</p>
