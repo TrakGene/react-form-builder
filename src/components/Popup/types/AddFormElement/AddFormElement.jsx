@@ -11,6 +11,8 @@ import {
   getFormType,
   getUserSideFormTypes,
 } from "../../../../constants/formTypes";
+import CheckboxInput from "../formTypes/CheckboxInput/CheckboxInput";
+import ParaInput from "../formTypes/ParaInput/ParaInput";
 
 // Components
 import TextInput from "../formTypes/TextInput/TextInput";
@@ -43,6 +45,12 @@ function AddFormElement() {
       </Select>
       {formType === FORM_TYPES.TEXT_INPUT && (
         <TextInput edit={popupContext.edit} />
+      )}
+      {formType === FORM_TYPES.PARAGRAPH_INPUT && (
+        <ParaInput edit={popupContext.edit} />
+      )}
+      {formType === FORM_TYPES.CHECKBOX_INPUT && (
+        <CheckboxInput edit={popupContext.edit} />
       )}
     </div>
   );

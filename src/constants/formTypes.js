@@ -1,11 +1,13 @@
 export const FORM_TYPES = {
   TEXT_INPUT: "TEXT_INPUT",
   PARAGRAPH_INPUT: "PARAGRAPH_INPUT",
+  CHECKBOX_INPUT: "CHECKBOX_INPUT",
 };
 
 export const USER_SIDE_FORM_TYPES = {
   "Text Input": "TEXT_INPUT",
   "Paragraph Input": "PARAGRAPH_INPUT",
+  "Checkbox Input": "CHECKBOX_INPUT",
 };
 
 export const getFormType = (type) => {
