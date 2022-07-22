@@ -1,0 +1,38 @@
+.FomBuilderContainer {
+  border-radius: 10px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  /* position: fixed; */
+}
+
+.FormCanvas {
+  padding: 20px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  width: 80%;
+  height: calc(100% - 40px);
+  overflow: scroll;
+}
+
+.FormToolsContainer {
+  padding: 20px;
+  width: 20%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+  .FomBuilderContainer {
+    flex-direction: column;
+  }
+
+  .FormCanvas {
+    width: 100%;
+    height: calc(80% - 40px);
+  }
+
+  .FormToolsContainer {
+    width: 100%;
+  }
+}

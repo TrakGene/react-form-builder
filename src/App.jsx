@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+// Styles
+import "./App.css";
+
+// Libraries
+import { createContext, useState } from "react";
+
+// Components
+import InitialPage from "./pages/InitalPage/InitialPage";
+import Popup from "./components/Popup/Popup";
+
+// The total `Structure` is named as FormData (ContextAPI)
+export const FormData = createContext({});
+export const VisitedNodeContext = createContext({});
+export const PopupContext = createContext({ show: false });
 
 function App() {
+  const formData = useState({});
+  const visitedContext = useState({});
+  const popupContext = useState({ show: false });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // Passing both the initial values and the setter function
+    <FormData.Provider value={formData}>
+      <VisitedNodeContext.Provider value={visitedContext}>
+        <PopupContext.Provider value={popupContext}>
+          <InitialPage />
+          <Popup />
+        </PopupContext.Provider>
+      </VisitedNodeContext.Provider>
+    </FormData.Provider>
   );
 }
 
