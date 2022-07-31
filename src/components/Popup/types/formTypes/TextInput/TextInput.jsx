@@ -70,7 +70,7 @@ function TextInput({ edit }) {
   return (
     <Fragment>
       <div className={styles.InitialFormScreen} onSubmit={handleFormSubmit}>
-        <h2>Text Input</h2>
+        <h2>Short Text</h2>
         <p>Add a text Input</p>
         <form onSubmit={formik.handleSubmit} className={styles.InitialForm}>
           <TextField

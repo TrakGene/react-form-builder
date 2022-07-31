@@ -9,7 +9,7 @@ import { getFormType } from "../../constants/formTypes";
 
 // Constants
 import { POPUP_TYPES } from "../../constants/popupTypes";
-import FormComponent from "../FormComponent/FormComponent";
+import FormComponent from "../SectionComponent/SectionComponent";
 
 // Styles
 import styles from "./GroupElement.module.css";

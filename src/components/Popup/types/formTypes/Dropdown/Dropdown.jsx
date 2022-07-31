@@ -14,7 +14,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
 // styles
-import styles from "./TextInput.module.css";
+import styles from "./Dropdown.module.css";
 
 // constants
 import { FORM_TYPES } from "../../../../../constants/formTypes";
@@ -33,7 +33,7 @@ const initialValidationSchema = yup.object({
     .required("There must be at least one option mentioned"),
 });
 
-function CheckboxInput({ edit }) {
+function Dropdown({ edit }) {
   // ContextAPI
   const [formData] = useContext(FormData);
   const [popupContext, setPopupContext] = useContext(PopupContext);
@@ -57,7 +57,7 @@ function CheckboxInput({ edit }) {
 
   // handleSubmit
   const handleFormSubmit = async (values) => {
-    values.type = FORM_TYPES.CHECKBOX_INPUT;
+    values.type = FORM_TYPES.DROPDOWN;
     const updatedFormData = formData;
     if (!edit) {
       values.id = uuidv4();
@@ -88,9 +88,6 @@ function CheckboxInput({ edit }) {
   };
 
   const handleDeleteOperation = (index) => {
-    // formik.values.options = formik.values.options.filter(
-    //   (options, i) => i !== index
-    // );
     const updatedOptions = [];
     for (let i = 0; i < formik.values.options.length; i++) {
       console.log(i);
@@ -131,8 +128,8 @@ function CheckboxInput({ edit }) {
   return (
     <Fragment>
       <div className={styles.InitialFormScreen} onSubmit={handleFormSubmit}>
-        <h2>Checkbox Input</h2>
-        <p>Add a checkbox Input</p>
+        <h2>Dropdown</h2>
+        <p>Add a dropdown Input</p>
         <form onSubmit={formik.handleSubmit} className={styles.InitialForm}>
           <TextField
             variant="outlined"
@@ -308,4 +305,4 @@ function CheckboxInput({ edit }) {
   );
 }
 
-export default CheckboxInput;
+export default Dropdown;

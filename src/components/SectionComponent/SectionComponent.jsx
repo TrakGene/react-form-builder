@@ -8,7 +8,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 // Constants
-import { FORM_TYPES, getUserSideFormTypeById } from "../../constants/formTypes";
+import { getUserSideFormTypeById } from "../../constants/formTypes";
 import { POPUP_TYPES } from "../../constants/popupTypes";
 
 // Services

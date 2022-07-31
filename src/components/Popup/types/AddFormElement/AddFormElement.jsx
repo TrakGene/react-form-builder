@@ -1,27 +1,25 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import { MenuItem, Select } from "@material-ui/core";
 import React, { useContext, useState } from "react";
 
 // ContextAPI
-import { FormData, PopupContext } from "../../../../App";
+import { PopupContext } from "../../../../App";
 
 // Constants
 import {
   FORM_TYPES,
-  getFormType,
   getUserSideFormTypes,
 } from "../../../../constants/formTypes";
 import CheckboxInput from "../formTypes/CheckboxInput/CheckboxInput";
+import Dropdown from "../formTypes/Dropdown/Dropdown";
+import LinearScale from "../formTypes/LinearScale/LinearScale";
+import MultipleChoice from "../formTypes/MultipleChoice/MultipleChoice";
 import ParaInput from "../formTypes/ParaInput/ParaInput";
 
 // Components
 import TextInput from "../formTypes/TextInput/TextInput";
 
-// Styles
-import styles from "./AddFormElement.module.css";
-
 function AddFormElement() {
-  const [popupContext, setPopupContext] = useContext(PopupContext);
+  const [popupContext] = useContext(PopupContext);
   const [formType, setFormType] = useState(popupContext.data.type);
   const [formTypesArray] = useState(getUserSideFormTypes());
 
@@ -45,14 +43,23 @@ function AddFormElement() {
           </MenuItem>
         ))}
       </Select>
-      {formType === FORM_TYPES.TEXT_INPUT && (
+      {formType === FORM_TYPES.SHORT_TEXT && (
         <TextInput edit={popupContext.edit} />
       )}
-      {formType === FORM_TYPES.PARAGRAPH_INPUT && (
+      {formType === FORM_TYPES.LONG_TEXT && (
         <ParaInput edit={popupContext.edit} />
       )}
       {formType === FORM_TYPES.CHECKBOX_INPUT && (
         <CheckboxInput edit={popupContext.edit} />
+      )}
+      {formType === FORM_TYPES.DROPDOWN && (
+        <Dropdown edit={popupContext.edit} />
+      )}
+      {formType === FORM_TYPES.MULTIPLE_CHOICE && (
+        <MultipleChoice edit={popupContext.edit} />
+      )}
+      {formType === FORM_TYPES.LINEAR_SCALE && (
+        <LinearScale edit={popupContext.edit} />
       )}
     </div>
   );

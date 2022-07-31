@@ -6,7 +6,7 @@ import React, { useContext } from "react";
 
 // ContextAPI
 import { FormData } from "../../App";
-import Group from "../Group/Group";
+import Group from "../Section/Section";
 
 function Canvas() {
   const [formData] = useContext(FormData);
