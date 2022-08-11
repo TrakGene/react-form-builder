@@ -7,6 +7,15 @@ export const FORM_TYPES = {
   LINEAR_SCALE: "LINEAR_SCALE",
 };
 
+export const CONDITIONAL_FORM_TYPES = {
+  SHORT_TEXT: false,
+  LONG_TEXT: false,
+  CHECKBOX_INPUT: true,
+  DROPDOWN: true,
+  MULTIPLE_CHOICE: true,
+  LINEAR_SCALE: false,
+};
+
 export const USER_SIDE_FORM_TYPES = {
   "Short Text": "SHORT_TEXT",
   "Long Text": "LONG_TEXT",

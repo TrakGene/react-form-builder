@@ -3,7 +3,7 @@ import { FormData, PopupContext } from "../../../../App";
 
 // Libraries
 import React, { Fragment, useContext } from "react";
-import { useFormik } from "formik";
+import { useFormik, Field, Form } from "formik";
 
 // Components
 import Button from "@material-ui/core/Button";
@@ -14,6 +14,20 @@ import styles from "./AddGroup.module.css";
 
 // Dependencies
 import GraphStructureService from "../../../../services/graph.structurer.service";
+import {
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  Select,
+} from "@material-ui/core";
+import { useState } from "react";
+import { CheckBox } from "@mui/icons-material";
+import { FORM_TYPES } from "../../../../constants/formTypes";
 
 const formFields = [
   { id: "GroupHeader", label: "Group Header", type: "text" },
@@ -22,6 +36,11 @@ const formFields = [
 const initialFormValues = {
   GroupHeader: "",
   GroupDescription: "",
+  Condition: {
+    condition: "None",
+    type: "NONE",
+  },
+  ConditionOptions: [],
 };
 
 function AddGroup() {
@@ -32,12 +51,23 @@ function AddGroup() {
   const [formData, setFormData] = useContext(FormData);
   const [popupContext, setPopupContext] = useContext(PopupContext);
 
+  // State
+  const [conditionElements] = useState(
+    gs.getConditionCheckElements(popupContext.data.id, formData)
+  );
+  const [conditionOptions, setConditionOptions] = useState();
+  const [formikState, setFormikState] = useState({ values: initialFormValues });
+
   // handleSubmit
   const handleFormSubmit = async (values) => {
     const newGroup = await gs.initializeEmptyGroup({
       initialFormValues: {
         FormTitle: values.GroupHeader,
         FormDescription: values.GroupDescription,
+      },
+      condition: {
+        formId: values.Condition.id,
+        value: values.ConditionOptions,
       },
       previousConnection: popupContext.data.id,
     });
@@ -62,6 +92,9 @@ function AddGroup() {
       handleFormSubmit(values);
     },
   });
+
+  console.log(formik.values);
+  console.log(formData);
 
   return (
     <Fragment>
@@ -96,6 +129,103 @@ function AddGroup() {
               />
             </div>
           ))}
+          <div>
+            <h4>Add Conditions</h4>
+            <p>
+              Add conditions to render this section depending upon the options
+              selected on the previous sections
+            </p>
+            <Select
+              variant="outlined"
+              placeholder="Form Type"
+              style={{ width: "100%" }}
+              value={formik.values.Condition.condition}
+            >
+              <MenuItem
+                key={`Condition_${0}`}
+                value={`None`}
+                onClick={() => {
+                  formik.values.Condition = { condition: "None", type: "NONE" };
+                  setFormikState(formik);
+                }}
+              >
+                None
+              </MenuItem>
+              {conditionElements.map((ft, index) => (
+                <MenuItem
+                  key={`Condition_${index + 1}`}
+                  value={`${formData.schema[ft.sectionId].title} | ${ft.label}`}
+                  onClick={() => {
+                    formik.values.Condition = {
+                      ...ft,
+                      condition: `${formData.schema[ft.sectionId].title} | ${
+                        ft.label
+                      }`,
+                    };
+                    setConditionOptions(ft.options);
+                    setFormikState(formik);
+                  }}
+                >
+                  {formData.schema[ft.sectionId].title} | {ft.label}
+                </MenuItem>
+              ))}
+            </Select>
+            {formikState.values.Condition.type ===
+              FORM_TYPES.CHECKBOX_INPUT && (
+              <div>
+                <FormGroup>
+                  {conditionOptions.map((option, index) => (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={formikState.values.ConditionOptions.includes(
+                            option
+                          )}
+                          onClick={() => {
+                            if (
+                              formik.values.ConditionOptions.includes(option)
+                            ) {
+                              const index =
+                                formik.values.ConditionOptions.indexOf(option);
+                              formik.values.ConditionOptions.splice(index, 1);
+                            } else {
+                              formik.values.ConditionOptions.push(option);
+                            }
+                            setFormikState(formik);
+                          }}
+                        />
+                      }
+                      label={option}
+                    />
+                  ))}
+                </FormGroup>
+              </div>
+            )}
+            {(formikState.values.Condition.type ===
+              FORM_TYPES.MULTIPLE_CHOICE ||
+              formikState.values.Condition.type === FORM_TYPES.DROPDOWN) && (
+              <FormControl>
+                <RadioGroup>
+                  {conditionOptions.map((option, index) => (
+                    <FormControlLabel
+                      control={
+                        <Radio
+                          checked={
+                            formikState.values.ConditionOptions === option
+                          }
+                          onClick={() => {
+                            formik.values.ConditionOptions = option;
+                            setFormikState(formik);
+                          }}
+                        />
+                      }
+                      label={option}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
+            )}
+          </div>
           <div
             style={{
               marginTop: "20px",

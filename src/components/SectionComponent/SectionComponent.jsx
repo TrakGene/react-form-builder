@@ -18,7 +18,6 @@ function FormComponent({ element, groupId }) {
   const gs = new GraphStructureService();
   const [, setPopupContext] = useContext(PopupContext);
   const [formDataContext, setFormDataContext] = useContext(FormData);
-
   const handleEdit = () => {
     setPopupContext({
       data: {

@@ -6,6 +6,7 @@ import {
 
 // Libraries
 import { v4 as uuidv4 } from "uuid";
+import { CONDITIONAL_FORM_TYPES } from "../constants/formTypes";
 
 // Dependencies
 const graphStepConverter = (schema, currentStep, steppedArray) => {
@@ -36,6 +37,26 @@ const getGraphStepConnections = (schema, currentStep, connectionsArray) => {
     }
   }
   getGraphStepConnections(schema, nextStep, connectionsArray);
+};
+
+const getConditionElements = (sectionId, data, connections) => {
+  console.log(data);
+  if (data.schema[sectionId].previousConnections.length === 0) return;
+  for (let i = 0; i < data.schema[sectionId].formElements.length; i++) {
+    if (CONDITIONAL_FORM_TYPES[data.schema[sectionId].formElements[i].type])
+      connections.push({
+        ...data.schema[sectionId].formElements[i],
+        sectionId,
+      });
+  }
+  for (let i = 0; i < data.schema[sectionId].previousConnections.length; i++) {
+    if (data.schema[sectionId].previousConnections[i])
+      getConditionElements(
+        data.schema[sectionId].previousConnections[i],
+        data,
+        connections
+      );
+  }
 };
 
 export default class GraphStructureService {
@@ -92,5 +113,24 @@ export default class GraphStructureService {
     data.schema[groupId].formElements = updatedForms;
     console.log(data);
     return { ...data };
+  };
+
+  getConditionCheckElements = (sectionId, data) => {
+    const connections = [];
+    // for (
+    //   let i = 0;
+    //   i < data.schema[sectionId].previousConnections.length;
+    //   i++
+    // ) {
+    //   if (data.schema[sectionId].previousConnections[i])
+    //     getConditionElements(
+    //       data.schema[sectionId].previousConnections[i],
+    //       data,
+    //       connections
+    //     );
+    // }
+    getConditionElements(sectionId, data, connections);
+    console.log(connections);
+    return connections;
   };
 }
