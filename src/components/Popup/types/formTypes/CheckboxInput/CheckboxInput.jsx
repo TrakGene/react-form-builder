@@ -133,7 +133,7 @@ function CheckboxInput({ edit }) {
       <div className={styles.InitialFormScreen} onSubmit={handleFormSubmit}>
         <h2>Checkbox Input</h2>
         <p>Add a checkbox Input</p>
-        <form onSubmit={formik.handleSubmit} className={styles.InitialForm}>
+        <form className={styles.InitialForm}>
           <TextField
             variant="outlined"
             className={styles.FormField}
@@ -298,7 +298,11 @@ function CheckboxInput({ edit }) {
             <div style={{ cursor: "pointer" }} onClick={handleClose}>
               <p>CANCEL</p>
             </div>
-            <Button variant="contained" className={styles.SubmitButton}>
+            <Button
+              onClick={formik.handleSubmit}
+              variant="contained"
+              className={styles.SubmitButton}
+            >
               {edit ? "SAVE" : "CREATE"}
             </Button>
           </div>

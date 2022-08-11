@@ -133,7 +133,7 @@ function MultipleChoice({ edit }) {
       <div className={styles.InitialFormScreen} onSubmit={handleFormSubmit}>
         <h2>Multiple Choice</h2>
         <p>Add a multiple choice input</p>
-        <form onSubmit={formik.handleSubmit} className={styles.InitialForm}>
+        <form className={styles.InitialForm}>
           <TextField
             variant="outlined"
             className={styles.FormField}
@@ -298,7 +298,11 @@ function MultipleChoice({ edit }) {
             <div style={{ cursor: "pointer" }} onClick={handleClose}>
               <p>CANCEL</p>
             </div>
-            <Button variant="contained" className={styles.SubmitButton}>
+            <Button
+              onClick={formik.handleSubmit}
+              variant="contained"
+              className={styles.SubmitButton}
+            >
               {edit ? "SAVE" : "CREATE"}
             </Button>
           </div>

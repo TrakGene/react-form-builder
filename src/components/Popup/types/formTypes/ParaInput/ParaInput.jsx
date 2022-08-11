@@ -35,7 +35,7 @@ function ParaInput({ edit }) {
 
   // handleSubmit
   const handleFormSubmit = async (values) => {
-    values.type = FORM_TYPES.PARAGRAPH_INPUT;
+    values.type = FORM_TYPES.LONG_TEXT;
     const updatedFormData = formData;
     if (!edit) {
       values.id = uuidv4();

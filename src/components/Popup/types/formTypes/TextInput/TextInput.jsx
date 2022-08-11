@@ -35,7 +35,7 @@ function TextInput({ edit }) {
 
   // handleSubmit
   const handleFormSubmit = async (values) => {
-    values.type = FORM_TYPES.TEXT_INPUT;
+    values.type = FORM_TYPES.SHORT_TEXT;
     const updatedFormData = formData;
     if (!edit) {
       values.id = uuidv4();
