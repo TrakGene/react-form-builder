@@ -48,6 +48,7 @@ function MultipleChoice({ edit }) {
       label: "",
       options: [],
       isRequired: false,
+      isIdentifier: false,
     };
     value.label = value.label || "";
     value.options = value.options || [];
@@ -287,6 +288,17 @@ function MultipleChoice({ edit }) {
               />
             }
             label="Is Required"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                id="isIdentifier"
+                name="isIdentifier"
+                checked={formik.values["isIdentifier"]}
+                onChange={formik.handleChange}
+              />
+            }
+            label="Is Identifier"
           />
           <div
             style={{

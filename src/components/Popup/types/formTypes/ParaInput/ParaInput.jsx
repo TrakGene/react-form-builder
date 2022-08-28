@@ -29,7 +29,11 @@ function ParaInput({ edit }) {
 
   const initialFormValues = () => {
     let value = {};
-    value = popupContext.data.formData || { label: "", isRequired: false };
+    value = popupContext.data.formData || {
+      label: "",
+      isRequired: false,
+      isIdentifier: false,
+    };
     return value;
   };
 
@@ -95,6 +99,17 @@ function ParaInput({ edit }) {
               />
             }
             label="Is Required"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                id="isIdentifier"
+                name="isIdentifier"
+                checked={formik.values["isIdentifier"]}
+                onChange={formik.handleChange}
+              />
+            }
+            label="Is Identifier"
           />
           <div
             style={{
