@@ -63,13 +63,27 @@ const getConditionElements = (sectionId, data, connections) => {
 };
 
 const getConnectedSections = (sectionId, data, connectedSections) => {
+  if (!data.schema[sectionId] || !data.schema[sectionId].groupsConnectedTo)
+    return;
   data.schema[sectionId].groupsConnectedTo.forEach((section) => {
-    connectedSections.push(section);
-    getConnectedSections(section, data, connectedSections);
+    connectedSections.push(section.id);
+    getConnectedSections(section.id, data, connectedSections);
   });
 };
 
-const removeSection = (sectionId, data) => {};
+const cleanGraphAfterRemoveSection = (sectionId, formData) => {
+  console.log(sectionId);
+  const updatedData = { ...formData };
+  for (let key in updatedData.schema) {
+    let connections = [];
+    for (let i = 0; i < updatedData.schema[key].groupsConnectedTo.length; i++) {
+      if (updatedData.schema[key].groupsConnectedTo[i].id !== sectionId)
+        connections.push(updatedData.schema[key].groupsConnectedTo[i]);
+    }
+    updatedData.schema[key].groupsConnectedTo = connections;
+  }
+  return updatedData;
+};
 
 export default class GraphStructureService {
   async initializeEmptyGroup({
@@ -147,12 +161,21 @@ export default class GraphStructureService {
 
   editSection(sectionId, updatedData, data) {
     const newData = { ...data };
-    console.log(updatedData);
     if (updatedData.title) newData.schema[sectionId].title = updatedData.title;
     if (updatedData.description)
       newData.schema[sectionId].description = updatedData.description;
     if (updatedData.condition)
       newData.schema[sectionId].condition = updatedData.condition;
     return newData;
+  }
+
+  removeSection(sectionId, data) {
+    const updatedData = { ...data };
+    const connectedSections = [];
+    getConnectedSections(sectionId, data, connectedSections);
+    delete updatedData.schema[sectionId];
+    connectedSections.forEach((section) => delete updatedData.schema[section]);
+    console.log(cleanGraphAfterRemoveSection(sectionId, updatedData));
+    return updatedData;
   }
 }

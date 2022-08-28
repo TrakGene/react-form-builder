@@ -18,10 +18,12 @@ import AddIcon from "@mui/icons-material/Add";
 
 // Styles
 import styles from "./GroupElement.module.css";
+import GraphStructureService from "../../services/graph.structurer.service";
 
 function GroupElement({ groupId }) {
+  const gs = new GraphStructureService();
   const [popupContext, setPopupContext] = useContext(PopupContext);
-  const [formDataContext] = useContext(FormData);
+  const [formDataContext, setFormDataContext] = useContext(FormData);
   const [data] = useState(formDataContext.schema[groupId]);
   const [, drop] = useDrop({
     accept: "tool",
@@ -66,6 +68,11 @@ function GroupElement({ groupId }) {
     });
   };
 
+  const handleDeleteSection = () => {
+    const updatedFormData = gs.removeSection(groupId, formDataContext);
+    setFormDataContext({ ...updatedFormData });
+  };
+
   return (
     <div id={groupId} className={styles.GroupElement} ref={drop}>
       <div
@@ -85,7 +92,15 @@ function GroupElement({ groupId }) {
             style={{ marginRight: "5px", cursor: "pointer" }}
             onClick={handleEditSection}
           />
-          <DeleteIcon style={{ cursor: "pointer" }} />
+          {formDataContext.schema[groupId].previousConnections.filter((n) => n)
+            .length ? (
+            <DeleteIcon
+              onClick={handleDeleteSection}
+              style={{ cursor: "pointer" }}
+            />
+          ) : (
+            <div></div>
+          )}
         </div>
       </div>
       <div style={{ marginTop: "10px" }}>
