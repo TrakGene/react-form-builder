@@ -40,8 +40,12 @@ const getGraphStepConnections = (schema, currentStep, connectionsArray) => {
 };
 
 const getConditionElements = (sectionId, data, connections) => {
-  console.log(data);
-  if (data.schema[sectionId].previousConnections.length === 0) return;
+  if (
+    !data.schema[sectionId] ||
+    !data.schema[sectionId].previousConnections ||
+    data.schema[sectionId].previousConnections.length === 0
+  )
+    return;
   for (let i = 0; i < data.schema[sectionId].formElements.length; i++) {
     if (CONDITIONAL_FORM_TYPES[data.schema[sectionId].formElements[i].type])
       connections.push({
@@ -71,7 +75,7 @@ export default class GraphStructureService {
     initialGroupStructure.title = initialFormValues.FormTitle;
     initialGroupStructure.description = initialFormValues.FormDescription;
     initialGroupStructure.renderType = renderType || "default";
-    initialGroupStructure.condition = condition || [];
+    initialGroupStructure.condition = condition || {};
     initialGroupStructure.formElements = [];
     initialGroupStructure.groupsConnectedTo = [];
     initialGroupStructure.previousConnections = [previousConnection];
@@ -130,7 +134,17 @@ export default class GraphStructureService {
     //     );
     // }
     getConditionElements(sectionId, data, connections);
-    console.log(connections);
     return connections;
   };
+
+  editSection(sectionId, updatedData, data) {
+    const newData = { ...data };
+    console.log(updatedData);
+    if (updatedData.title) newData.schema[sectionId].title = updatedData.title;
+    if (updatedData.description)
+      newData.schema[sectionId].description = updatedData.description;
+    if (updatedData.condition)
+      newData.schema[sectionId].condition = updatedData.condition;
+    return newData;
+  }
 }

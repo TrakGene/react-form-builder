@@ -11,6 +11,10 @@ import { getFormType } from "../../constants/formTypes";
 import { POPUP_TYPES } from "../../constants/popupTypes";
 import FormComponent from "../SectionComponent/SectionComponent";
 
+// Icons
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 // Styles
 import styles from "./GroupElement.module.css";
 
@@ -35,6 +39,18 @@ function GroupElement({ groupId }) {
       show: true,
       type: POPUP_TYPES.ADD_GROUP,
       data,
+      edit: false,
+    });
+  };
+
+  const handleEditSection = () => {
+    setPopupContext({
+      ...popupContext,
+      show: true,
+      type: POPUP_TYPES.ADD_GROUP,
+      data,
+      sectionData: data,
+      edit: true,
     });
   };
 
@@ -51,9 +67,25 @@ function GroupElement({ groupId }) {
 
   return (
     <div id={groupId} className={styles.GroupElement} ref={drop}>
-      <div>
-        <h2 style={{ margin: "0px" }}>{data.title}</h2>
-        <p style={{ margin: "0px" }}>{data.description}</p>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        <div style={{ marginRight: "20px" }}>
+          <h2 style={{ margin: "0px" }}>{data.title}</h2>
+          <p style={{ margin: "0px" }}>{data.description}</p>
+        </div>
+        <div style={{ display: "flex" }}>
+          <EditIcon
+            style={{ marginRight: "5px", cursor: "pointer" }}
+            onClick={handleEditSection}
+          />
+          <DeleteIcon style={{ cursor: "pointer" }} />
+        </div>
       </div>
       <div style={{ marginTop: "10px" }}>
         {data.formElements.map((element, index) => {
