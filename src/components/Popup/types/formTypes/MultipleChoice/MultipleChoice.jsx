@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 
 // Components
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import TextField from "@material-ui/core/TextField";
 
 // styles
@@ -298,11 +298,7 @@ function MultipleChoice({ edit }) {
             <div style={{ cursor: "pointer" }} onClick={handleClose}>
               <p>CANCEL</p>
             </div>
-            <Button
-              onClick={formik.handleSubmit}
-              variant="contained"
-              className={styles.SubmitButton}
-            >
+            <Button onClick={formik.handleSubmit} variant="contained">
               {edit ? "SAVE" : "CREATE"}
             </Button>
           </div>

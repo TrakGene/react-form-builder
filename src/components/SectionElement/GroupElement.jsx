@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import Button from "@mui/material/Button";
 import React, { useContext } from "react";
 import { useState } from "react";
 import { useDrop } from "react-dnd";
@@ -14,6 +14,7 @@ import FormComponent from "../SectionComponent/SectionComponent";
 // Icons
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 
 // Styles
 import styles from "./GroupElement.module.css";
@@ -96,12 +97,15 @@ function GroupElement({ groupId }) {
           );
         })}
       </div>
-      <div style={{ margin: "10px", textAlign: "center" }}>
+      <div style={{ margin: "10px", marginTop: "30px", textAlign: "center" }}>
         <Button
-          variant="outlined"
-          className={styles.AddGroupButton}
+          // variant="outlined"
+          // className={styles.AddGroupButton}
+          variant="contained"
+          style={{ backgroundColor: "green" }}
           onClick={handleAddGroup}
         >
+          <AddIcon />
           ADD GROUP
         </Button>
       </div>

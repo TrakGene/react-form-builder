@@ -62,6 +62,15 @@ const getConditionElements = (sectionId, data, connections) => {
   }
 };
 
+const getConnectedSections = (sectionId, data, connectedSections) => {
+  data.schema[sectionId].groupsConnectedTo.forEach((section) => {
+    connectedSections.push(section);
+    getConnectedSections(section, data, connectedSections);
+  });
+};
+
+const removeSection = (sectionId, data) => {};
+
 export default class GraphStructureService {
   async initializeEmptyGroup({
     previousConnection,

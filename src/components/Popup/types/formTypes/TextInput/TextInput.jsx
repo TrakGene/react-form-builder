@@ -8,7 +8,7 @@ import * as yup from "yup";
 import { v4 as uuidv4 } from "uuid";
 
 // Components
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import TextField from "@material-ui/core/TextField";
 
 // styles

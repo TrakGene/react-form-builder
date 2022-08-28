@@ -6,7 +6,7 @@ import React, { Fragment, useContext } from "react";
 import { useFormik, Field, Form } from "formik";
 
 // Components
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import TextField from "@material-ui/core/TextField";
 
 // styles
@@ -152,7 +152,7 @@ function AddGroup({ edit }) {
 
   const [formikState, setFormikState] = useState({ values: formik.values });
 
-  console.log(conditionOptions);
+  console.log(formData);
 
   return (
     <Fragment>
