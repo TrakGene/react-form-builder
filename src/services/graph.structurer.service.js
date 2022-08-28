@@ -42,7 +42,6 @@ const getGraphStepConnections = (schema, currentStep, connectionsArray) => {
 const getConditionElements = (sectionId, data, connections) => {
   if (
     !data.schema[sectionId] ||
-    !data.schema[sectionId].previousConnections ||
     data.schema[sectionId].previousConnections.length === 0
   )
     return;
@@ -134,7 +133,7 @@ export default class GraphStructureService {
     //     );
     // }
     getConditionElements(sectionId, data, connections);
-    return connections;
+    return [...connections];
   };
 
   editSection(sectionId, updatedData, data) {

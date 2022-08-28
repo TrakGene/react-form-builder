@@ -84,13 +84,9 @@ function AddGroup({ edit }) {
           },
         });
     } else {
-      if (
-        popupContext.data.previousConnections &&
-        popupContext.data.previousConnections.length
-      )
-        setConditionOptions(
-          gs.getConditionCheckElements(popupContext.data.id, formData)
-        );
+      setConditionElements(
+        gs.getConditionCheckElements(popupContext.data.id, formData)
+      );
     }
   }, []);
 
@@ -156,7 +152,7 @@ function AddGroup({ edit }) {
 
   const [formikState, setFormikState] = useState({ values: formik.values });
 
-  console.log(popupContext);
+  console.log(conditionOptions);
 
   return (
     <Fragment>
