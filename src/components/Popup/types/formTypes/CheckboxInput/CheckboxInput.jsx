@@ -42,6 +42,8 @@ function CheckboxInput({ edit }) {
   const [optionEditText, setOptionEditText] = useState("");
   const [optionsList, setOptionsList] = useState([]);
 
+  console.log("hello");
+
   const initialFormValues = () => {
     let value = {};
     value = popupContext.data.formData || {
