@@ -8,7 +8,7 @@ import * as yup from "yup";
 import { v4 as uuidv4 } from "uuid";
 
 // Components
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import TextField from "@material-ui/core/TextField";
 
 // styles
@@ -29,13 +29,17 @@ function ParaInput({ edit }) {
 
   const initialFormValues = () => {
     let value = {};
-    value = popupContext.data.formData || { label: "", isRequired: false };
+    value = popupContext.data.formData || {
+      label: "",
+      isRequired: false,
+      isIdentifier: false,
+    };
     return value;
   };
 
   // handleSubmit
   const handleFormSubmit = async (values) => {
-    values.type = FORM_TYPES.PARAGRAPH_INPUT;
+    values.type = FORM_TYPES.LONG_TEXT;
     const updatedFormData = formData;
     if (!edit) {
       values.id = uuidv4();
@@ -70,8 +74,8 @@ function ParaInput({ edit }) {
   return (
     <Fragment>
       <div className={styles.InitialFormScreen} onSubmit={handleFormSubmit}>
-        <h2>Paragraph Input</h2>
-        <p>Add a Paragraph Input</p>
+        <h2>Long Text</h2>
+        <p>Add a long text</p>
         <form onSubmit={formik.handleSubmit} className={styles.InitialForm}>
           <TextField
             variant="outlined"
@@ -95,6 +99,17 @@ function ParaInput({ edit }) {
               />
             }
             label="Is Required"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                id="isIdentifier"
+                name="isIdentifier"
+                checked={formik.values["isIdentifier"]}
+                onChange={formik.handleChange}
+              />
+            }
+            label="Is Identifier"
           />
           <div
             style={{

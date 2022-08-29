@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { VisitedNodeContext } from "../../App";
-import GroupElement from "../GroupElement/GroupElement";
+import GroupElement from "../SectionElement/GroupElement";
 
 function Group({ groupIdArray, data }) {
   const [visitedContext, setVisitedContext] = useContext(VisitedNodeContext);

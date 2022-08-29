@@ -29,6 +29,7 @@ const style = {
 
 function Popup() {
   const [popupContext, setPopupContext] = useContext(PopupContext);
+  console.log(popupContext);
   return (
     <div>
       <Modal
@@ -38,7 +39,9 @@ function Popup() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {popupContext.type === POPUP_TYPES.ADD_GROUP && <AddGroup />}
+          {popupContext.type === POPUP_TYPES.ADD_GROUP && (
+            <AddGroup edit={popupContext.edit} />
+          )}
           {popupContext.type === POPUP_TYPES.ADD_FORM_ELEMENT && (
             <AddFormElement />
           )}

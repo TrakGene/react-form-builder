@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 // Components
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import TextField from "@material-ui/core/TextField";
 
 // styles

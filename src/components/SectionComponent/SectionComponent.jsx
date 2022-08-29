@@ -8,7 +8,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 // Constants
-import { FORM_TYPES, getUserSideFormTypeById } from "../../constants/formTypes";
+import { getUserSideFormTypeById } from "../../constants/formTypes";
 import { POPUP_TYPES } from "../../constants/popupTypes";
 
 // Services
@@ -18,7 +18,6 @@ function FormComponent({ element, groupId }) {
   const gs = new GraphStructureService();
   const [, setPopupContext] = useContext(PopupContext);
   const [formDataContext, setFormDataContext] = useContext(FormData);
-
   const handleEdit = () => {
     setPopupContext({
       data: {
@@ -44,6 +43,8 @@ function FormComponent({ element, groupId }) {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        marginTop: "10px",
+        marginBottom: "10px",
       }}
     >
       <div>

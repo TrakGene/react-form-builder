@@ -6,13 +6,13 @@ import React, { useContext } from "react";
 
 // ContextAPI
 import { FormData } from "../../App";
-import Group from "../Group/Group";
+import Section from "../Section/Section";
 
 function Canvas() {
   const [formData] = useContext(FormData);
   return (
     <div className={styles.Canvas}>
-      <Group
+      <Section
         data={formData.schema}
         groupIdArray={[{ id: formData.startingGroupId, type: "default" }]}
       />

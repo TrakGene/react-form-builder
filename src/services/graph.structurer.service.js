@@ -6,6 +6,7 @@ import {
 
 // Libraries
 import { v4 as uuidv4 } from "uuid";
+import { CONDITIONAL_FORM_TYPES } from "../constants/formTypes";
 
 // Dependencies
 const graphStepConverter = (schema, currentStep, steppedArray) => {
@@ -38,6 +39,61 @@ const getGraphStepConnections = (schema, currentStep, connectionsArray) => {
   getGraphStepConnections(schema, nextStep, connectionsArray);
 };
 
+const getConditionElements = (sectionId, data, connections) => {
+  if (
+    !data.schema[sectionId] ||
+    data.schema[sectionId].previousConnections.length === 0
+  )
+    return;
+  for (let i = 0; i < data.schema[sectionId].formElements.length; i++) {
+    if (CONDITIONAL_FORM_TYPES[data.schema[sectionId].formElements[i].type])
+      connections.push({
+        ...data.schema[sectionId].formElements[i],
+        sectionId,
+      });
+  }
+  for (let i = 0; i < data.schema[sectionId].previousConnections.length; i++) {
+    if (data.schema[sectionId].previousConnections[i])
+      getConditionElements(
+        data.schema[sectionId].previousConnections[i],
+        data,
+        connections
+      );
+  }
+};
+
+const getConnectedSections = (sectionId, data, connectedSections) => {
+  if (!data.schema[sectionId] || !data.schema[sectionId].groupsConnectedTo)
+    return;
+  data.schema[sectionId].groupsConnectedTo.forEach((section) => {
+    connectedSections.push(section.id);
+    getConnectedSections(section.id, data, connectedSections);
+  });
+};
+
+const cleanGraphAfterRemoveSection = (sectionId, formData) => {
+  console.log(sectionId);
+  for (let key in formData.schema) {
+    let connections = [];
+    for (let i = 0; i < formData.schema[key].groupsConnectedTo.length; i++) {
+      if (formData.schema[key].groupsConnectedTo[i].id !== sectionId)
+        connections.push(formData.schema[key].groupsConnectedTo[i]);
+    }
+    formData.schema[key].groupsConnectedTo = connections;
+  }
+};
+
+const removeSectionsAttachedWithFormElement = (formId, data) => {
+  const sections = [];
+  for (let key in data.schema) {
+    if (data.schema[key].condition.formId === formId) sections.push(key);
+  }
+  sections.forEach((section) => {
+    delete data.schema[section];
+    cleanGraphAfterRemoveSection(section, data);
+  });
+};
+
 export default class GraphStructureService {
   async initializeEmptyGroup({
     previousConnection,
@@ -50,7 +106,7 @@ export default class GraphStructureService {
     initialGroupStructure.title = initialFormValues.FormTitle;
     initialGroupStructure.description = initialFormValues.FormDescription;
     initialGroupStructure.renderType = renderType || "default";
-    initialGroupStructure.condition = condition || [];
+    initialGroupStructure.condition = condition || {};
     initialGroupStructure.formElements = [];
     initialGroupStructure.groupsConnectedTo = [];
     initialGroupStructure.previousConnections = [previousConnection];
@@ -90,7 +146,46 @@ export default class GraphStructureService {
       if (form.id !== formId) updatedForms.push(form);
     });
     data.schema[groupId].formElements = updatedForms;
+    removeSectionsAttachedWithFormElement(formId, data);
     console.log(data);
     return { ...data };
   };
+
+  getConditionCheckElements = (sectionId, data) => {
+    const connections = [];
+    // for (
+    //   let i = 0;
+    //   i < data.schema[sectionId].previousConnections.length;
+    //   i++
+    // ) {
+    //   if (data.schema[sectionId].previousConnections[i])
+    //     getConditionElements(
+    //       data.schema[sectionId].previousConnections[i],
+    //       data,
+    //       connections
+    //     );
+    // }
+    getConditionElements(sectionId, data, connections);
+    return [...connections];
+  };
+
+  editSection(sectionId, updatedData, data) {
+    const newData = { ...data };
+    if (updatedData.title) newData.schema[sectionId].title = updatedData.title;
+    if (updatedData.description)
+      newData.schema[sectionId].description = updatedData.description;
+    if (updatedData.condition)
+      newData.schema[sectionId].condition = updatedData.condition;
+    return newData;
+  }
+
+  removeSection(sectionId, data) {
+    const updatedData = { ...data };
+    const connectedSections = [];
+    getConnectedSections(sectionId, data, connectedSections);
+    delete updatedData.schema[sectionId];
+    connectedSections.forEach((section) => delete updatedData.schema[section]);
+    console.log(cleanGraphAfterRemoveSection(sectionId, updatedData));
+    return updatedData;
+  }
 }

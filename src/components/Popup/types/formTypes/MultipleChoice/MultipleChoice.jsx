@@ -14,7 +14,7 @@ import Button from "@mui/material/Button";
 import TextField from "@material-ui/core/TextField";
 
 // styles
-import styles from "./TextInput.module.css";
+import styles from "./MultipleChoice.module.css";
 
 // constants
 import { FORM_TYPES } from "../../../../../constants/formTypes";
@@ -33,7 +33,7 @@ const initialValidationSchema = yup.object({
     .required("There must be at least one option mentioned"),
 });
 
-function CheckboxInput({ edit }) {
+function MultipleChoice({ edit }) {
   // ContextAPI
   const [formData] = useContext(FormData);
   const [popupContext, setPopupContext] = useContext(PopupContext);
@@ -58,7 +58,7 @@ function CheckboxInput({ edit }) {
 
   // handleSubmit
   const handleFormSubmit = async (values) => {
-    values.type = FORM_TYPES.CHECKBOX_INPUT;
+    values.type = FORM_TYPES.MULTIPLE_CHOICE;
     const updatedFormData = formData;
     if (!edit) {
       values.id = uuidv4();
@@ -132,8 +132,8 @@ function CheckboxInput({ edit }) {
   return (
     <Fragment>
       <div className={styles.InitialFormScreen} onSubmit={handleFormSubmit}>
-        <h2>Checkbox Input</h2>
-        <p>Add a checkbox Input</p>
+        <h2>Multiple Choice</h2>
+        <p>Add a multiple choice input</p>
         <form className={styles.InitialForm}>
           <TextField
             variant="outlined"
@@ -320,4 +320,4 @@ function CheckboxInput({ edit }) {
   );
 }
 
-export default CheckboxInput;
+export default MultipleChoice;
