@@ -73,16 +73,25 @@ const getConnectedSections = (sectionId, data, connectedSections) => {
 
 const cleanGraphAfterRemoveSection = (sectionId, formData) => {
   console.log(sectionId);
-  const updatedData = { ...formData };
-  for (let key in updatedData.schema) {
+  for (let key in formData.schema) {
     let connections = [];
-    for (let i = 0; i < updatedData.schema[key].groupsConnectedTo.length; i++) {
-      if (updatedData.schema[key].groupsConnectedTo[i].id !== sectionId)
-        connections.push(updatedData.schema[key].groupsConnectedTo[i]);
+    for (let i = 0; i < formData.schema[key].groupsConnectedTo.length; i++) {
+      if (formData.schema[key].groupsConnectedTo[i].id !== sectionId)
+        connections.push(formData.schema[key].groupsConnectedTo[i]);
     }
-    updatedData.schema[key].groupsConnectedTo = connections;
+    formData.schema[key].groupsConnectedTo = connections;
   }
-  return updatedData;
+};
+
+const removeSectionsAttachedWithFormElement = (formId, data) => {
+  const sections = [];
+  for (let key in data.schema) {
+    if (data.schema[key].condition.formId === formId) sections.push(key);
+  }
+  sections.forEach((section) => {
+    delete data.schema[section];
+    cleanGraphAfterRemoveSection(section, data);
+  });
 };
 
 export default class GraphStructureService {
@@ -137,6 +146,7 @@ export default class GraphStructureService {
       if (form.id !== formId) updatedForms.push(form);
     });
     data.schema[groupId].formElements = updatedForms;
+    removeSectionsAttachedWithFormElement(formId, data);
     console.log(data);
     return { ...data };
   };
