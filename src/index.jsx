@@ -5,13 +5,30 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
+
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
+}
+
+const { width, height } = getWindowDimensions();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <DndProvider backend={HTML5Backend}>
-      <App />
-    </DndProvider>
+    {width <= 720 ? (
+      <DndProvider backend={TouchBackend}>
+        <App />
+      </DndProvider>
+    ) : (
+      <DndProvider backend={HTML5Backend}>
+        <App />
+      </DndProvider>
+    )}
   </React.StrictMode>
 );
 
