@@ -310,7 +310,16 @@ function LinearScale({ edit }) {
             <div style={{ cursor: "pointer" }} onClick={handleClose}>
               <p>CANCEL</p>
             </div>
-            <Button onClick={formik.handleSubmit} variant="contained">
+            <Button
+              onClick={formik.handleSubmit}
+              variant="contained"
+              style={{
+                paddingLeft: "20px",
+                paddingRight: "20px",
+                backgroundColor: "green",
+                color: "white",
+              }}
+            >
               {edit ? "SAVE" : "CREATE"}
             </Button>
           </div>
