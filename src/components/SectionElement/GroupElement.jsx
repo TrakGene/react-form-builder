@@ -81,6 +81,7 @@ function GroupElement({ groupId }) {
           justifyContent: "space-between",
           alignItems: "center",
           marginBottom: "20px",
+          width: "50vw",
         }}
       >
         <div style={{ marginRight: "20px" }}>

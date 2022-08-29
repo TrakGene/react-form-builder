@@ -86,7 +86,11 @@ const cleanGraphAfterRemoveSection = (sectionId, formData) => {
 const removeSectionsAttachedWithFormElement = (formId, data) => {
   const sections = [];
   for (let key in data.schema) {
-    if (data.schema[key].condition.formId === formId) sections.push(key);
+    if (
+      data.schema[key].condition.id === formId ||
+      data.schema[key].condition.formId === formId
+    )
+      sections.push(key);
   }
   sections.forEach((section) => {
     delete data.schema[section];
@@ -147,6 +151,7 @@ export default class GraphStructureService {
     });
     data.schema[groupId].formElements = updatedForms;
     removeSectionsAttachedWithFormElement(formId, data);
+
     console.log(data);
     return { ...data };
   };

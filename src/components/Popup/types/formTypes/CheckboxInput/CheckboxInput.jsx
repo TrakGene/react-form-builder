@@ -42,6 +42,8 @@ function CheckboxInput({ edit }) {
   const [optionEditText, setOptionEditText] = useState("");
   const [optionsList, setOptionsList] = useState([]);
 
+  console.log("hello");
+
   const initialFormValues = () => {
     let value = {};
     value = popupContext.data.formData || {
@@ -310,7 +312,16 @@ function CheckboxInput({ edit }) {
             <div style={{ cursor: "pointer" }} onClick={handleClose}>
               <p>CANCEL</p>
             </div>
-            <Button onClick={formik.handleSubmit} variant="contained">
+            <Button
+              onClick={formik.handleSubmit}
+              variant="contained"
+              style={{
+                paddingLeft: "20px",
+                paddingRight: "20px",
+                backgroundColor: "green",
+                color: "white",
+              }}
+            >
               {edit ? "SAVE" : "CREATE"}
             </Button>
           </div>
