@@ -152,7 +152,7 @@ function AddGroup({ edit }) {
 
   const [formikState, setFormikState] = useState({ values: formik.values });
 
-  console.log(formData);
+  console.log(formikState.values);
 
   return (
     <Fragment>
@@ -313,11 +313,11 @@ function AddGroup({ edit }) {
                         control={
                           <Radio
                             checked={
-                              formikState.values.ConditionOptions === option
+                              formikState.values.Condition.value === option
                             }
                             onClick={() => {
                               const updatedState = { ...formikState };
-                              updatedState.values.ConditionOptions = option;
+                              updatedState.values.Condition.value = option;
                               setFormikState(updatedState);
                             }}
                           />
