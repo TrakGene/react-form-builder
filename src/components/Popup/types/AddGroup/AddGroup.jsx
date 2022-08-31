@@ -3,7 +3,7 @@ import { FormData, PopupContext } from "../../../../App";
 
 // Libraries
 import React, { Fragment, useContext } from "react";
-import { useFormik, Field, Form } from "formik";
+import { useFormik } from "formik";
 
 // Components
 import Button from "@mui/material/Button";
@@ -19,14 +19,12 @@ import {
   FormControl,
   FormControlLabel,
   FormGroup,
-  FormLabel,
   MenuItem,
   Radio,
   RadioGroup,
   Select,
 } from "@material-ui/core";
 import { useState } from "react";
-import { CheckBox } from "@mui/icons-material";
 import { FORM_TYPES } from "../../../../constants/formTypes";
 import { useEffect } from "react";
 
@@ -40,6 +38,7 @@ const initialFormValues = {
   Condition: {
     condition: "None",
     type: "NONE",
+    value: [],
   },
   ConditionOptions: [],
 };
@@ -105,7 +104,7 @@ function AddGroup({ edit }) {
       condition: {
         formId: values.Condition.id,
         sectionId: values.Condition.sectionId,
-        value: values.ConditionOptions,
+        value: values.Condition.value,
         condition: values.Condition.condition,
         type: values.Condition.type,
         options: conditionOptions,
@@ -152,7 +151,7 @@ function AddGroup({ edit }) {
 
   const [formikState, setFormikState] = useState({ values: formik.values });
 
-  console.log(formData);
+  console.log(formikState.values);
 
   return (
     <Fragment>
@@ -246,6 +245,7 @@ function AddGroup({ edit }) {
                             condition: `${
                               formData.schema[ft.sectionId].title
                             } | ${ft.label}`,
+                            value: [],
                           },
                         },
                       });
@@ -263,33 +263,33 @@ function AddGroup({ edit }) {
                       <FormControlLabel
                         control={
                           <Checkbox
-                            checked={formikState.values.Condition.options.includes(
+                            checked={formikState.values.Condition.value.includes(
                               option
                             )}
                             onClick={() => {
                               const updatedState = { ...formikState };
                               console.log(
-                                formikState.values.Condition.options.includes(
+                                formikState.values.Condition.value.includes(
                                   option
                                 )
                               );
                               if (
-                                formikState.values.Condition.options.includes(
+                                formikState.values.Condition.value.includes(
                                   option
                                 )
                               ) {
                                 const index =
-                                  formikState.values.Condition.options.indexOf(
+                                  formikState.values.Condition.value.indexOf(
                                     option
                                   );
                                 console.log(index);
                                 console.log(option);
-                                updatedState.values.Condition.options.splice(
+                                updatedState.values.Condition.value.splice(
                                   index,
                                   1
                                 );
                               } else {
-                                updatedState.values.Condition.options.push(
+                                updatedState.values.Condition.value.push(
                                   option
                                 );
                               }
@@ -313,11 +313,11 @@ function AddGroup({ edit }) {
                         control={
                           <Radio
                             checked={
-                              formikState.values.ConditionOptions === option
+                              formikState.values.Condition.value === option
                             }
                             onClick={() => {
                               const updatedState = { ...formikState };
-                              updatedState.values.ConditionOptions = option;
+                              updatedState.values.Condition.value = option;
                               setFormikState(updatedState);
                             }}
                           />
