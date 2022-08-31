@@ -83,7 +83,7 @@ const cleanGraphAfterRemoveSection = (sectionId, formData) => {
   }
 };
 
-const removeSectionsAttachedWithFormElement = (formId, data) => {
+const editSchemaAfterFormEdit = (formId, data) => {
   const sections = [];
   for (let key in data.schema) {
     if (
@@ -93,8 +93,10 @@ const removeSectionsAttachedWithFormElement = (formId, data) => {
       sections.push(key);
   }
   sections.forEach((section) => {
-    delete data.schema[section];
-    cleanGraphAfterRemoveSection(section, data);
+    data.schema[section].condition = {};
+    data.schema[section].warning =
+      "This section has no conditions to be rendered";
+    // cleanGraphAfterRemoveSection(section, data);
   });
 };
 
@@ -114,6 +116,7 @@ export default class GraphStructureService {
     initialGroupStructure.formElements = [];
     initialGroupStructure.groupsConnectedTo = [];
     initialGroupStructure.previousConnections = [previousConnection];
+    initialGroupStructure.warning = "";
     return initialGroupStructure;
   }
 
@@ -150,9 +153,10 @@ export default class GraphStructureService {
       if (form.id !== formId) updatedForms.push(form);
     });
     data.schema[groupId].formElements = updatedForms;
-    removeSectionsAttachedWithFormElement(formId, data);
+    editSchemaAfterFormEdit(formId, data);
 
     console.log(data);
+
     return { ...data };
   };
 
@@ -181,6 +185,7 @@ export default class GraphStructureService {
       newData.schema[sectionId].description = updatedData.description;
     if (updatedData.condition)
       newData.schema[sectionId].condition = updatedData.condition;
+    newData.schema[sectionId].warning = "";
     return newData;
   }
 

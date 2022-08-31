@@ -19,6 +19,8 @@ import AddIcon from "@mui/icons-material/Add";
 // Styles
 import styles from "./GroupElement.module.css";
 import GraphStructureService from "../../services/graph.structurer.service";
+import { Alert } from "@mui/material";
+import { WarningAmberOutlined } from "@mui/icons-material";
 
 function GroupElement({ groupId }) {
   const gs = new GraphStructureService();
@@ -104,6 +106,14 @@ function GroupElement({ groupId }) {
           )}
         </div>
       </div>
+      {data.warning && (
+        <Alert
+          icon={<WarningAmberOutlined fontSize="inherit" />}
+          severity="error"
+        >
+          {data.warning}
+        </Alert>
+      )}
       <div style={{ marginTop: "10px" }}>
         {data.formElements.map((element, index) => {
           return (
