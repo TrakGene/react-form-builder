@@ -151,8 +151,6 @@ function AddGroup({ edit }) {
 
   const [formikState, setFormikState] = useState({ values: formik.values });
 
-  console.log(formikState.values);
-
   return (
     <Fragment>
       <div className={styles.InitialFormScreen} onSubmit={handleFormSubmit}>

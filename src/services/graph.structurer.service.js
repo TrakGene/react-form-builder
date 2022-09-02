@@ -165,12 +165,14 @@ export default class GraphStructureService {
     if (
       edit ||
       value.type === FORM_TYPES.LONG_TEXT ||
-      value.type === FORM_TYPES.SHORT_TEXT
+      value.type === FORM_TYPES.SHORT_TEXT ||
+      value.type === FORM_TYPES.EMBED_CONTENT
     )
       editSchemaAfterFormEdit(formId, data);
     if (
       value.type !== FORM_TYPES.LONG_TEXT &&
-      value.type === FORM_TYPES.SHORT_TEXT
+      value.type !== FORM_TYPES.SHORT_TEXT &&
+      value.type !== FORM_TYPES.EMBED_CONTENT
     )
       for (let section in data.schema) {
         if (
@@ -232,6 +234,20 @@ export default class GraphStructureService {
         updatedData.schema[section].groupsConnectedTo = [
           ...updatedData.schema[section].groupsConnectedTo,
           ...updatedData.schema[sectionId].groupsConnectedTo,
+        ];
+      }
+    });
+    updatedData.schema[sectionId].groupsConnectedTo.forEach((section) => {
+      console.log(section, updatedData.schema);
+      if (section) {
+        updatedData.schema[section.id].previousConnections = updatedData.schema[
+          section.id
+        ].previousConnections.filter(function (item) {
+          return item !== sectionId;
+        });
+        updatedData.schema[section.id].previousConnections = [
+          ...updatedData.schema[section.id].previousConnections,
+          ...updatedData.schema[sectionId].previousConnections,
         ];
       }
     });
