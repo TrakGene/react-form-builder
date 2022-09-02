@@ -8,7 +8,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 // Constants
-import { getUserSideFormTypeById } from "../../constants/formTypes";
+import { FORM_TYPES, getUserSideFormTypeById } from "../../constants/formTypes";
 import { POPUP_TYPES } from "../../constants/popupTypes";
 
 // Services
@@ -47,24 +47,42 @@ function FormComponent({ element, groupId }) {
         marginBottom: "10px",
       }}
     >
-      <div>
-        <p style={{ margin: "0px" }}>
-          <strong>Label: </strong>
-          {element.label}
-        </p>
-        <p style={{ margin: "0px" }}>
-          <strong>Form Type: </strong>
-          {getUserSideFormTypeById(element.type)}
-        </p>
-      </div>
-      <div style={{ display: "flex" }}>
-        <div style={{ cursor: "pointer", marginRight: "10px" }}>
-          <EditIcon onClick={handleEdit} />
-        </div>
-        <div style={{ cursor: "pointer" }}>
-          <DeleteIcon onClick={handleDelete} />
-        </div>
-      </div>
+      {element.type === FORM_TYPES.EMBED_CONTENT ? (
+        <>
+          <div>
+            <p style={{ margin: "0px" }}>{element.label}</p>
+          </div>
+          <div style={{ display: "flex" }}>
+            <div style={{ cursor: "pointer", marginRight: "10px" }}>
+              <EditIcon onClick={handleEdit} />
+            </div>
+            <div style={{ cursor: "pointer" }}>
+              <DeleteIcon onClick={handleDelete} />
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div>
+            <p style={{ margin: "0px" }}>
+              <strong>Label: </strong>
+              {element.label}
+            </p>
+            <p style={{ margin: "0px" }}>
+              <strong>Form Type: </strong>
+              {getUserSideFormTypeById(element.type)}
+            </p>
+          </div>
+          <div style={{ display: "flex" }}>
+            <div style={{ cursor: "pointer", marginRight: "10px" }}>
+              <EditIcon onClick={handleEdit} />
+            </div>
+            <div style={{ cursor: "pointer" }}>
+              <DeleteIcon onClick={handleDelete} />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

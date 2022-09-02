@@ -5,6 +5,7 @@ export const FORM_TYPES = {
   DROPDOWN: "DROPDOWN",
   MULTIPLE_CHOICE: "MULTIPLE_CHOICE",
   LINEAR_SCALE: "LINEAR_SCALE",
+  EMBED_CONTENT: "EMBED_CONTENT",
 };
 
 export const CONDITIONAL_FORM_TYPES = {
@@ -14,6 +15,7 @@ export const CONDITIONAL_FORM_TYPES = {
   DROPDOWN: true,
   MULTIPLE_CHOICE: true,
   LINEAR_SCALE: false,
+  EMBED_CONTENT: false,
 };
 
 export const USER_SIDE_FORM_TYPES = {
@@ -23,6 +25,7 @@ export const USER_SIDE_FORM_TYPES = {
   Dropdown: "DROPDOWN",
   "Multiple Choice": "MULTIPLE_CHOICE",
   "Linear Scale": "LINEAR_SCALE",
+  "Embed Content": "EMBED_CONTENT",
 };
 
 export const getFormType = (type) => {

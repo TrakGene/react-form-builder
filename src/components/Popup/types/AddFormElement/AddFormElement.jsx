@@ -11,6 +11,7 @@ import {
 } from "../../../../constants/formTypes";
 import CheckboxInput from "../formTypes/CheckboxInput/CheckboxInput";
 import Dropdown from "../formTypes/Dropdown/Dropdown";
+import EmbedContent from "../formTypes/EmbedContent/EmbedContent";
 import LinearScale from "../formTypes/LinearScale/LinearScale";
 import MultipleChoice from "../formTypes/MultipleChoice/MultipleChoice";
 import ParaInput from "../formTypes/ParaInput/ParaInput";
@@ -58,6 +59,9 @@ function AddFormElement() {
       )}
       {formType === FORM_TYPES.LINEAR_SCALE && (
         <LinearScale edit={popupContext.edit} />
+      )}
+      {formType === FORM_TYPES.EMBED_CONTENT && (
+        <EmbedContent edit={popupContext.edit} />
       )}
     </div>
   );
