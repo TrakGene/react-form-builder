@@ -222,8 +222,27 @@ export default class GraphStructureService {
     const updatedData = { ...data };
     const connectedSections = [];
     getConnectedSections(sectionId, data, connectedSections);
+    updatedData.schema[sectionId].previousConnections.forEach((section) => {
+      if (section) {
+        updatedData.schema[section].groupsConnectedTo = updatedData.schema[
+          section
+        ].groupsConnectedTo.filter(function (item) {
+          return item !== sectionId;
+        });
+        updatedData.schema[section].groupsConnectedTo = [
+          ...updatedData.schema[section].groupsConnectedTo,
+          ...updatedData.schema[sectionId].groupsConnectedTo,
+        ];
+      }
+    });
     delete updatedData.schema[sectionId];
-    connectedSections.forEach((section) => delete updatedData.schema[section]);
+    connectedSections.forEach((section) => {
+      updatedData.schema[section].condition = {};
+      // updatedData.schema[section].previousConnections = [];
+      // updatedData.schema[section].groupsConnectedTo = [];
+      updatedData.schema[section].warning =
+        "This section has no conditions to be rendered";
+    });
     console.log(cleanGraphAfterRemoveSection(sectionId, updatedData));
     return updatedData;
   }
