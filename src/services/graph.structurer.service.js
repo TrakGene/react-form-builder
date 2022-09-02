@@ -6,7 +6,7 @@ import {
 
 // Libraries
 import { v4 as uuidv4 } from "uuid";
-import { CONDITIONAL_FORM_TYPES } from "../constants/formTypes";
+import { CONDITIONAL_FORM_TYPES, FORM_TYPES } from "../constants/formTypes";
 
 // Dependencies
 const graphStepConverter = (schema, currentStep, steppedArray) => {
@@ -83,7 +83,7 @@ const cleanGraphAfterRemoveSection = (sectionId, formData) => {
   }
 };
 
-const removeSectionsAttachedWithFormElement = (formId, data) => {
+const editSchemaAfterFormEdit = (formId, data) => {
   const sections = [];
   for (let key in data.schema) {
     if (
@@ -93,8 +93,10 @@ const removeSectionsAttachedWithFormElement = (formId, data) => {
       sections.push(key);
   }
   sections.forEach((section) => {
-    delete data.schema[section];
-    cleanGraphAfterRemoveSection(section, data);
+    data.schema[section].condition = {};
+    data.schema[section].warning =
+      "This section has no conditions to be rendered";
+    // cleanGraphAfterRemoveSection(section, data);
   });
 };
 
@@ -114,6 +116,7 @@ export default class GraphStructureService {
     initialGroupStructure.formElements = [];
     initialGroupStructure.groupsConnectedTo = [];
     initialGroupStructure.previousConnections = [previousConnection];
+    initialGroupStructure.warning = "";
     return initialGroupStructure;
   }
 
@@ -150,8 +153,38 @@ export default class GraphStructureService {
       if (form.id !== formId) updatedForms.push(form);
     });
     data.schema[groupId].formElements = updatedForms;
-    removeSectionsAttachedWithFormElement(formId, data);
+    editSchemaAfterFormEdit(formId, data);
 
+    console.log(data);
+
+    return { ...data };
+  };
+
+  editFormElement = (formId, sectionId, data, value, edit) => {
+    console.log(value, sectionId, formId);
+    if (
+      edit ||
+      value.type === FORM_TYPES.LONG_TEXT ||
+      value.type === FORM_TYPES.SHORT_TEXT
+    )
+      editSchemaAfterFormEdit(formId, data);
+    if (
+      value.type !== FORM_TYPES.LONG_TEXT &&
+      value.type === FORM_TYPES.SHORT_TEXT
+    )
+      for (let section in data.schema) {
+        if (
+          data.schema[section].condition &&
+          (data.schema[section].condition.formId === formId ||
+            data.schema[section].condition.id === formId)
+        ) {
+          data.schema[section].condition.condition =
+            data.schema[sectionId].title + " | " + value.label;
+          data.schema[section].condition.type = value.type;
+          data.schema[section].condition.options = value.options;
+          if (edit) data.schema[sectionId].condition.value = [];
+        }
+      }
     console.log(data);
     return { ...data };
   };
@@ -181,6 +214,7 @@ export default class GraphStructureService {
       newData.schema[sectionId].description = updatedData.description;
     if (updatedData.condition)
       newData.schema[sectionId].condition = updatedData.condition;
+    newData.schema[sectionId].warning = "";
     return newData;
   }
 
@@ -188,8 +222,27 @@ export default class GraphStructureService {
     const updatedData = { ...data };
     const connectedSections = [];
     getConnectedSections(sectionId, data, connectedSections);
+    updatedData.schema[sectionId].previousConnections.forEach((section) => {
+      if (section) {
+        updatedData.schema[section].groupsConnectedTo = updatedData.schema[
+          section
+        ].groupsConnectedTo.filter(function (item) {
+          return item !== sectionId;
+        });
+        updatedData.schema[section].groupsConnectedTo = [
+          ...updatedData.schema[section].groupsConnectedTo,
+          ...updatedData.schema[sectionId].groupsConnectedTo,
+        ];
+      }
+    });
     delete updatedData.schema[sectionId];
-    connectedSections.forEach((section) => delete updatedData.schema[section]);
+    connectedSections.forEach((section) => {
+      updatedData.schema[section].condition = {};
+      // updatedData.schema[section].previousConnections = [];
+      // updatedData.schema[section].groupsConnectedTo = [];
+      updatedData.schema[section].warning =
+        "This section has no conditions to be rendered";
+    });
     console.log(cleanGraphAfterRemoveSection(sectionId, updatedData));
     return updatedData;
   }

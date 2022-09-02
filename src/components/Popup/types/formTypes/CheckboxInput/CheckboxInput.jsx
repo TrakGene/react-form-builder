@@ -22,6 +22,7 @@ import { FORM_TYPES } from "../../../../../constants/formTypes";
 // Icons
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import GraphStructureService from "../../../../../services/graph.structurer.service";
 
 const initialValidationSchema = yup.object({
   label: yup
@@ -35,18 +36,18 @@ const initialValidationSchema = yup.object({
 
 function CheckboxInput({ edit }) {
   // ContextAPI
-  const [formData] = useContext(FormData);
+  const [formData, setFormData] = useContext(FormData);
   const [popupContext, setPopupContext] = useContext(PopupContext);
   const [option, setOption] = useState("");
   const [optionsEdit, setOptionsEdit] = useState({});
   const [optionEditText, setOptionEditText] = useState("");
   const [optionsList, setOptionsList] = useState([]);
-
-  console.log("hello");
+  const [hasChanged, setHasChanged] = useState(false);
+  const gs = new GraphStructureService();
 
   const initialFormValues = () => {
     let value = {};
-    value = popupContext.data.formData || {
+    value = { ...popupContext.data.formData } || {
       label: "",
       options: [],
       isRequired: false,
@@ -55,13 +56,13 @@ function CheckboxInput({ edit }) {
     value.label = value.label || "";
     value.options = value.options || [];
     value.isRequired = value.isRequired || false;
-    return value;
+    return { ...value };
   };
 
   // handleSubmit
   const handleFormSubmit = async (values) => {
     values.type = FORM_TYPES.CHECKBOX_INPUT;
-    const updatedFormData = formData;
+    const updatedFormData = { ...formData };
     if (!edit) {
       values.id = uuidv4();
       updatedFormData.schema[popupContext.data.id].formElements.push(values);
@@ -72,9 +73,17 @@ function CheckboxInput({ edit }) {
         if (formElements[i].id === popupContext.data.formData.id) {
           values.id = formElements[i].id;
           formElements[i] = values;
+          gs.editFormElement(
+            values.id,
+            popupContext.data.id,
+            updatedFormData,
+            values,
+            hasChanged
+          );
         }
       }
       updatedFormData.schema[popupContext.data.id].formElements = formElements;
+      setFormData(updatedFormData);
       setPopupContext({ ...popupContext, show: false });
     }
   };
@@ -87,7 +96,8 @@ function CheckboxInput({ edit }) {
   const handleOptionsEditOperation = (index) => {
     if (optionEditText !== "") formik.values.options[index] = optionEditText;
     setOptionsEdit({ ...optionsEdit, [index]: 0 });
-    setOptionsList(formik.values.options);
+    setOptionsList([...formik.values.options]);
+    setHasChanged(true);
   };
 
   const handleDeleteOperation = (index) => {
@@ -96,13 +106,11 @@ function CheckboxInput({ edit }) {
     // );
     const updatedOptions = [];
     for (let i = 0; i < formik.values.options.length; i++) {
-      console.log(i);
       if (index !== i) updatedOptions.push(formik.values.options[i]);
     }
-    console.log(index);
-    console.log(updatedOptions);
     formik.values.options = updatedOptions;
     setOptionsList(updatedOptions);
+    setHasChanged(true);
   };
 
   const handleClose = async () => {
@@ -115,7 +123,7 @@ function CheckboxInput({ edit }) {
     delete formik.errors.options;
     setOptionsList(formik.values.options);
     setOption("");
-    console.log(formik.values);
+    setHasChanged(true);
   };
 
   // Formik
