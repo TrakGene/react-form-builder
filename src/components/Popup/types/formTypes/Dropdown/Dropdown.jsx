@@ -22,6 +22,7 @@ import { FORM_TYPES } from "../../../../../constants/formTypes";
 // Icons
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import GraphStructureService from "../../../../../services/graph.structurer.service";
 
 const initialValidationSchema = yup.object({
   label: yup
@@ -35,12 +36,14 @@ const initialValidationSchema = yup.object({
 
 function Dropdown({ edit }) {
   // ContextAPI
-  const [formData] = useContext(FormData);
+  const [formData, setFormData] = useContext(FormData);
   const [popupContext, setPopupContext] = useContext(PopupContext);
   const [option, setOption] = useState("");
   const [optionsEdit, setOptionsEdit] = useState({});
   const [optionEditText, setOptionEditText] = useState("");
   const [optionsList, setOptionsList] = useState([]);
+  const [hasChanged, setHasChanged] = useState(false);
+  const gs = new GraphStructureService();
 
   const initialFormValues = () => {
     let value = {};
@@ -59,7 +62,7 @@ function Dropdown({ edit }) {
   // handleSubmit
   const handleFormSubmit = async (values) => {
     values.type = FORM_TYPES.DROPDOWN;
-    const updatedFormData = formData;
+    const updatedFormData = { ...formData };
     if (!edit) {
       values.id = uuidv4();
       updatedFormData.schema[popupContext.data.id].formElements.push(values);
@@ -70,9 +73,17 @@ function Dropdown({ edit }) {
         if (formElements[i].id === popupContext.data.formData.id) {
           values.id = formElements[i].id;
           formElements[i] = values;
+          gs.editFormElement(
+            values.id,
+            popupContext.data.id,
+            updatedFormData,
+            values,
+            hasChanged
+          );
         }
       }
       updatedFormData.schema[popupContext.data.id].formElements = formElements;
+      setFormData(updatedFormData);
       setPopupContext({ ...popupContext, show: false });
     }
   };
@@ -86,6 +97,7 @@ function Dropdown({ edit }) {
     if (optionEditText !== "") formik.values.options[index] = optionEditText;
     setOptionsEdit({ ...optionsEdit, [index]: 0 });
     setOptionsList(formik.values.options);
+    setHasChanged(true);
   };
 
   const handleDeleteOperation = (index) => {
@@ -98,6 +110,7 @@ function Dropdown({ edit }) {
     console.log(updatedOptions);
     formik.values.options = updatedOptions;
     setOptionsList(updatedOptions);
+    setHasChanged(true);
   };
 
   const handleClose = async () => {

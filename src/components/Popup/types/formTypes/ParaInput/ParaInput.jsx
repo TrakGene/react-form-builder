@@ -15,6 +15,7 @@ import TextField from "@material-ui/core/TextField";
 import styles from "./TextInput.module.css";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { FORM_TYPES } from "../../../../../constants/formTypes";
+import GraphStructureService from "../../../../../services/graph.structurer.service";
 
 const initialValidationSchema = yup.object({
   label: yup
@@ -24,8 +25,9 @@ const initialValidationSchema = yup.object({
 
 function ParaInput({ edit }) {
   // ContextAPI
-  const [formData] = useContext(FormData);
+  const [formData, setFormData] = useContext(FormData);
   const [popupContext, setPopupContext] = useContext(PopupContext);
+  const gs = new GraphStructureService();
 
   const initialFormValues = () => {
     let value = {};
@@ -40,7 +42,7 @@ function ParaInput({ edit }) {
   // handleSubmit
   const handleFormSubmit = async (values) => {
     values.type = FORM_TYPES.LONG_TEXT;
-    const updatedFormData = formData;
+    const updatedFormData = { ...formData };
     if (!edit) {
       values.id = uuidv4();
       updatedFormData.schema[popupContext.data.id].formElements.push(values);
@@ -51,9 +53,17 @@ function ParaInput({ edit }) {
         if (formElements[i].id === popupContext.data.formData.id) {
           values.id = formElements[i].id;
           formElements[i] = values;
+          gs.editFormElement(
+            values.id,
+            popupContext.data.id,
+            updatedFormData,
+            values,
+            true
+          );
         }
       }
       updatedFormData.schema[popupContext.data.id].formElements = formElements;
+      setFormData(updatedFormData);
       setPopupContext({ ...popupContext, show: false });
     }
   };

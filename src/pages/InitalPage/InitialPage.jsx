@@ -9,7 +9,7 @@ import FormBuilderPage from "../../components/formBuilderPage";
 import InitialScreen from "../../components/InitialScreen";
 
 function InitialPage() {
-  const [formData] = useContext(FormData);
+  const [formData, setFormData] = useContext(FormData);
   return (
     <div>
       {!Object.keys(formData).length ? <InitialScreen /> : <FormBuilderPage />}

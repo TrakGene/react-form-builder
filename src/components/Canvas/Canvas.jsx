@@ -9,7 +9,7 @@ import { FormData } from "../../App";
 import Section from "../Section/Section";
 
 function Canvas() {
-  const [formData] = useContext(FormData);
+  const [formData, setFormData] = useContext(FormData);
   return (
     <div className={styles.Canvas}>
       <Section

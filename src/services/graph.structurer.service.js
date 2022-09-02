@@ -6,7 +6,7 @@ import {
 
 // Libraries
 import { v4 as uuidv4 } from "uuid";
-import { CONDITIONAL_FORM_TYPES } from "../constants/formTypes";
+import { CONDITIONAL_FORM_TYPES, FORM_TYPES } from "../constants/formTypes";
 
 // Dependencies
 const graphStepConverter = (schema, currentStep, steppedArray) => {
@@ -157,6 +157,35 @@ export default class GraphStructureService {
 
     console.log(data);
 
+    return { ...data };
+  };
+
+  editFormElement = (formId, sectionId, data, value, edit) => {
+    console.log(value, sectionId, formId);
+    if (
+      edit ||
+      value.type === FORM_TYPES.LONG_TEXT ||
+      value.type === FORM_TYPES.SHORT_TEXT
+    )
+      editSchemaAfterFormEdit(formId, data);
+    if (
+      value.type !== FORM_TYPES.LONG_TEXT &&
+      value.type === FORM_TYPES.SHORT_TEXT
+    )
+      for (let section in data.schema) {
+        if (
+          data.schema[section].condition &&
+          (data.schema[section].condition.formId === formId ||
+            data.schema[section].condition.id === formId)
+        ) {
+          data.schema[section].condition.condition =
+            data.schema[sectionId].title + " | " + value.label;
+          data.schema[section].condition.type = value.type;
+          data.schema[section].condition.options = value.options;
+          if (edit) data.schema[sectionId].condition.value = [];
+        }
+      }
+    console.log(data);
     return { ...data };
   };
 

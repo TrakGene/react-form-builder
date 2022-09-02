@@ -29,7 +29,7 @@ const style = {
 
 function Popup() {
   const [popupContext, setPopupContext] = useContext(PopupContext);
-  console.log(popupContext);
+
   return (
     <div>
       <Modal
