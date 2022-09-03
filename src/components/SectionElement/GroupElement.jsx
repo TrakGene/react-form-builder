@@ -132,7 +132,7 @@ function GroupElement({ groupId }) {
           onClick={handleAddGroup}
         >
           <AddIcon />
-          ADD GROUP
+          ADD SECTION
         </Button>
       </div>
     </div>
