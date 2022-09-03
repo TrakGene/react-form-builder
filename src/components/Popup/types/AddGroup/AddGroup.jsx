@@ -58,6 +58,8 @@ function AddGroup({ edit }) {
   const [conditionOptions, setConditionOptions] = useState([]);
   const [error, setError] = useState("");
 
+  console.log(formData);
+
   useEffect(() => {
     if (popupContext.edit) {
       if (
