@@ -3,12 +3,15 @@
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "React Form Builder",
   tagline: "React drag and drop form builder made for genetics data collection",
-  url: "https://your-docusaurus-test-site.com",
+  url: "https://react-form-builder.github.io",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -16,8 +19,10 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "facebook", // Usually your GitHub org/user name.
-  projectName: "docusaurus", // Usually your repo name.
+  organizationName: process.env.GITHUB_ORG, // Usually your GitHub org/user name.
+  projectName: process.env.PROJECT_NAME, // Usually your repo name.
+  deploymentBranch: process.env.DEPLOYMENT_BRANCH,
+  trailingSlash: false,
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
