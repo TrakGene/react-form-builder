@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 // Components
 import Button from "@mui/material/Button";
 import TextField from "@material-ui/core/TextField";
+import { Alert } from "@mui/material";
 
 // styles
 import styles from "./AddGroup.module.css";
@@ -27,6 +28,7 @@ import {
 import { useState } from "react";
 import { FORM_TYPES } from "../../../../constants/formTypes";
 import { useEffect } from "react";
+import { WarningAmberOutlined } from "@mui/icons-material";
 
 const formFields = [
   { id: "GroupHeader", label: "Group Header", type: "text" },
@@ -54,6 +56,7 @@ function AddGroup({ edit }) {
   // State
   const [conditionElements, setConditionElements] = useState([]);
   const [conditionOptions, setConditionOptions] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (popupContext.edit) {
@@ -91,24 +94,28 @@ function AddGroup({ edit }) {
 
   // handleSubmit
   const handleFormSubmit = async (values) => {
+    const condition = {
+      formId: values.Condition.id,
+      sectionId: values.Condition.sectionId,
+      value: values.Condition.value,
+      condition: values.Condition.condition,
+      type: values.Condition.type,
+      options: conditionOptions,
+    };
+    if (!gs.verifyUniqueCondition(popupContext.data.id, formData, condition)) {
+      setError("This specified condition already exists in the parent section");
+      return;
+    }
     if (edit) {
       handleEditSection();
       return;
     }
-    console.log(values);
     const newGroup = await gs.initializeEmptyGroup({
       initialFormValues: {
         FormTitle: values.GroupHeader,
         FormDescription: values.GroupDescription,
       },
-      condition: {
-        formId: values.Condition.id,
-        sectionId: values.Condition.sectionId,
-        value: values.Condition.value,
-        condition: values.Condition.condition,
-        type: values.Condition.type,
-        options: conditionOptions,
-      },
+      condition,
       previousConnection: popupContext.data.id,
     });
     let updateFormData = { ...formData };
@@ -117,7 +124,6 @@ function AddGroup({ edit }) {
       renderType: "default",
     });
     updateFormData.schema[newGroup.id] = { ...newGroup };
-    console.log(updateFormData);
     setFormData(updateFormData);
     setPopupContext({ ...popupContext, show: false });
   };
@@ -327,6 +333,15 @@ function AddGroup({ edit }) {
                 </FormControl>
               )}
             </div>
+          )}
+          {error && (
+            <Alert
+              icon={<WarningAmberOutlined fontSize="inherit" />}
+              severity="error"
+              style={{ marginBottom: "10px", marginTop: "10px" }}
+            >
+              {error}
+            </Alert>
           )}
           <div
             style={{
