@@ -7,6 +7,7 @@ import {
 // Libraries
 import { v4 as uuidv4 } from "uuid";
 import { CONDITIONAL_FORM_TYPES, FORM_TYPES } from "../constants/formTypes";
+import _ from "lodash";
 
 // Dependencies
 const graphStepConverter = (schema, currentStep, steppedArray) => {
@@ -72,7 +73,6 @@ const getConnectedSections = (sectionId, data, connectedSections) => {
 };
 
 const cleanGraphAfterRemoveSection = (sectionId, formData) => {
-  console.log(sectionId);
   for (let key in formData.schema) {
     let connections = [];
     for (let i = 0; i < formData.schema[key].groupsConnectedTo.length; i++) {
@@ -154,14 +154,10 @@ export default class GraphStructureService {
     });
     data.schema[groupId].formElements = updatedForms;
     editSchemaAfterFormEdit(formId, data);
-
-    console.log(data);
-
     return { ...data };
   };
 
   editFormElement = (formId, sectionId, data, value, edit) => {
-    console.log(value, sectionId, formId);
     if (
       edit ||
       value.type === FORM_TYPES.LONG_TEXT ||
@@ -187,26 +183,24 @@ export default class GraphStructureService {
           if (edit) data.schema[sectionId].condition.value = [];
         }
       }
-    console.log(data);
     return { ...data };
   };
 
   getConditionCheckElements = (sectionId, data) => {
     const connections = [];
-    // for (
-    //   let i = 0;
-    //   i < data.schema[sectionId].previousConnections.length;
-    //   i++
-    // ) {
-    //   if (data.schema[sectionId].previousConnections[i])
-    //     getConditionElements(
-    //       data.schema[sectionId].previousConnections[i],
-    //       data,
-    //       connections
-    //     );
-    // }
     getConditionElements(sectionId, data, connections);
     return [...connections];
+  };
+
+  verifyUniqueCondition = (sectionId, data, condition) => {
+    let found = false;
+    data.schema[sectionId].groupsConnectedTo.forEach((section) => {
+      if (section && section.id) {
+        if (_.isEqual(data.schema[section.id].condition, condition))
+          found = true;
+      }
+    });
+    return !found;
   };
 
   editSection(sectionId, updatedData, data) {
@@ -238,7 +232,6 @@ export default class GraphStructureService {
       }
     });
     updatedData.schema[sectionId].groupsConnectedTo.forEach((section) => {
-      console.log(section, updatedData.schema);
       if (section) {
         updatedData.schema[section.id].previousConnections = updatedData.schema[
           section.id
@@ -259,7 +252,7 @@ export default class GraphStructureService {
       updatedData.schema[section].warning =
         "This section has no conditions to be rendered";
     });
-    console.log(cleanGraphAfterRemoveSection(sectionId, updatedData));
+    cleanGraphAfterRemoveSection(sectionId, updatedData);
     return updatedData;
   }
 }
