@@ -103,7 +103,6 @@ function Dropdown({ edit }) {
   const handleDeleteOperation = (index) => {
     const updatedOptions = [];
     for (let i = 0; i < formik.values.options.length; i++) {
-      console.log(i);
       if (index !== i) updatedOptions.push(formik.values.options[i]);
     }
     console.log(index);
