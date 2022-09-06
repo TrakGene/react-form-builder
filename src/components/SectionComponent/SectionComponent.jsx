@@ -1,4 +1,11 @@
 import React, { useContext } from "react";
+import { Interweave } from "interweave";
+import {
+  UrlMatcher,
+  IpMatcher,
+  EmailMatcher,
+  HashtagMatcher,
+} from "interweave-autolink";
 
 // ContextAPI
 import { FormData, PopupContext } from "../../App";
@@ -50,7 +57,16 @@ function FormComponent({ element, groupId }) {
       {element.type === FORM_TYPES.EMBED_CONTENT ? (
         <>
           <div>
-            <p style={{ margin: "0px" }}>{element.label}</p>
+            <Interweave
+              content={element.label}
+              matchers={[
+                new UrlMatcher("url"),
+                new IpMatcher("ip"),
+                new EmailMatcher("email"),
+                new HashtagMatcher("hashtag"),
+              ]}
+            />
+            ;
           </div>
           <div style={{ display: "flex" }}>
             <div style={{ cursor: "pointer", marginRight: "10px" }}>
