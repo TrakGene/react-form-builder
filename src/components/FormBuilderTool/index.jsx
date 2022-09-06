@@ -7,10 +7,15 @@ import Canvas from "../Canvas/Canvas";
 import styles from "./FormBuilderTool.module.css";
 
 // Constants
-import { getUserSideFormTypes } from "../../constants/formTypes";
+import {
+  FORM_TYPE_ICON,
+  getUserSideFormTypes,
+} from "../../constants/formTypes";
 
 function FormBuilderTool() {
   const formTools = getUserSideFormTypes();
+
+  console.log(formTools);
   return (
     <div className={styles.FomBuilderContainer}>
       <div className={styles.FormCanvas}>
@@ -18,7 +23,21 @@ function FormBuilderTool() {
       </div>
       <div className={styles.FormToolsContainer}>
         {formTools.map((tool, index) => (
-          <div key={`Tool_${index}`}>
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+              margin: "5px",
+              alignItems: "center",
+            }}
+            key={`Tool_${index}`}
+          >
+            <img
+              src={require(`../../assets/icons/${FORM_TYPE_ICON[tool.key]}`)}
+              alt="Form_Type_Icon"
+              style={{ height: "30px" }}
+            />
             <Tool toolName={tool.value} />
           </div>
         ))}
