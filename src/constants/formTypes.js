@@ -8,6 +8,16 @@ export const FORM_TYPES = {
   EMBED_CONTENT: "EMBED_CONTENT",
 };
 
+export const FORM_TYPE_ICON = {
+  SHORT_TEXT: "shortText.png",
+  LONG_TEXT: "longText.png",
+  CHECKBOX_INPUT: "checkbox.png",
+  DROPDOWN: "dropDown.png",
+  MULTIPLE_CHOICE: "multipleChoice.png",
+  LINEAR_SCALE: "linearScale.png",
+  EMBED_CONTENT: "addContent.png",
+};
+
 export const CONDITIONAL_FORM_TYPES = {
   SHORT_TEXT: false,
   LONG_TEXT: false,
