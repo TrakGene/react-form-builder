@@ -15,7 +15,6 @@ import {
 function FormBuilderTool() {
   const formTools = getUserSideFormTypes();
 
-  console.log(formTools);
   return (
     <div className={styles.FomBuilderContainer}>
       <div className={styles.FormCanvas}>

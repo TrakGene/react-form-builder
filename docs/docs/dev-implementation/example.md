@@ -1,3 +1,22 @@
+---
+sidebar_position: 5
+---
+
+# Example
+
+Here we will talk about an example
+
+## What we are trying to make?
+
+Here we will discuss a simple implementation where the user is told to specify the gender and gender specific questions are to be asked
+
+It will look like this:
+
+![s1](/img/example/ex1.png)
+
+The schema of this will be looking like this:
+
+```json
 {
   "formId": "",
   "title": "Pre-clinic  form Builder Example",
@@ -71,3 +90,4 @@
     }
   }
 }
+```
