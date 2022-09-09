@@ -26,7 +26,7 @@ You can check the live demo [here](https://react-form-builder-trackgene.vercel.a
 
 ## Setting up
 
-- Clone the [Github](https://github.com/TrakGene/react-form-builder) using the command repo
+- Clone the [Github repo](https://github.com/TrakGene/react-form-builder) using the command repo
 
   ```
   git clone https://github.com/TrakGene/react-form-builder
