@@ -2,10 +2,12 @@ import Button from "@mui/material/Button";
 import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { useDrop } from "react-dnd";
+import { v4 as uuidv4 } from "uuid";
 
 // ContextAPI
 import { FormData, PopupContext } from "../../App";
 import { getFormType } from "../../constants/formTypes";
+import { USER_SIDE_TEMPLATE_TYPES } from "../../constants/templateTypes";
 
 // Constants
 import { POPUP_TYPES } from "../../constants/popupTypes";
@@ -21,6 +23,7 @@ import styles from "./GroupElement.module.css";
 import GraphStructureService from "../../services/graph.structurer.service";
 import { Alert } from "@mui/material";
 import { WarningAmberOutlined } from "@mui/icons-material";
+import { TEMPLATE } from "../../constants/templateTypes";
 
 function GroupElement({ groupId }) {
   const gs = new GraphStructureService();
@@ -59,7 +62,25 @@ function GroupElement({ groupId }) {
     });
   };
 
+  const handleAddTemplate = (item) => {
+    const updatedFormDataContext = { ...formDataContext };
+    const templateName = USER_SIDE_TEMPLATE_TYPES[item.toolName];
+    TEMPLATE[templateName].forEach((formElement) => {
+      const updatedFormElement = { ...formElement, id: uuidv4() };
+      updatedFormDataContext.schema[groupId].formElements.push(
+        updatedFormElement
+      );
+    });
+    setFormDataContext(updatedFormDataContext);
+  };
+
+  console.log(formDataContext);
+
   const handleAddFormElement = (item) => {
+    if (USER_SIDE_TEMPLATE_TYPES[item.toolName]) {
+      handleAddTemplate(item);
+      return;
+    }
     setPopupContext({
       show: true,
       type: POPUP_TYPES.ADD_FORM_ELEMENT,

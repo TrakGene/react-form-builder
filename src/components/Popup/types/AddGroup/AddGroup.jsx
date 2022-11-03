@@ -43,6 +43,7 @@ const initialFormValues = {
     value: [],
   },
   ConditionOptions: [],
+  repeat: false,
 };
 
 function AddGroup({ edit }) {
@@ -76,6 +77,7 @@ function AddGroup({ edit }) {
             GroupHeader: popupContext.data.title,
             GroupDescription: popupContext.data.description,
             Condition: popupContext.data.condition,
+            repeat: popupContext.data.repeat,
           },
         });
       } else
@@ -114,6 +116,7 @@ function AddGroup({ edit }) {
       initialFormValues: {
         FormTitle: values.GroupHeader,
         FormDescription: values.GroupDescription,
+        repeat: values.repeat,
       },
       condition,
       previousConnection: popupContext.data.id,
@@ -136,6 +139,7 @@ function AddGroup({ edit }) {
           title: formikState.values.GroupHeader,
           description: formikState.values.GroupDescription,
           condition: formikState.values.Condition,
+          repeat: formikState.values.repeat,
         },
         formData
       )
@@ -198,6 +202,25 @@ function AddGroup({ edit }) {
               />
             </div>
           ))}
+          <FormControlLabel
+            control={
+              <Checkbox
+                id="repeat"
+                name="repeat"
+                checked={formikState.values["repeat"]}
+                onChange={() =>
+                  setFormikState({
+                    ...formikState,
+                    values: {
+                      ...formikState.values,
+                      repeat: !formikState.values.repeat,
+                    },
+                  })
+                }
+              />
+            }
+            label="Repeating Section"
+          />
           {(popupContext.data.id != formData.startingGroupId || !edit) && (
             <div>
               <h4>Add Conditions</h4>

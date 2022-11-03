@@ -6,6 +6,10 @@ export const FORM_TYPES = {
   MULTIPLE_CHOICE: "MULTIPLE_CHOICE",
   LINEAR_SCALE: "LINEAR_SCALE",
   EMBED_CONTENT: "EMBED_CONTENT",
+  EMAIL_INPUT: "EMAIL_INPUT",
+  DATE_TIME_INPUT: "DATE_TIME_INPUT",
+  FILE_UPLOAD: "FILE_UPLOAD",
+  SIGNATURE: "SIGNATURE",
 };
 
 export const FORM_TYPE_ICON = {
@@ -16,6 +20,10 @@ export const FORM_TYPE_ICON = {
   MULTIPLE_CHOICE: "multipleChoice.png",
   LINEAR_SCALE: "linearScale.png",
   EMBED_CONTENT: "addContent.png",
+  EMAIL_INPUT: "email.png",
+  DATE_TIME_INPUT: "calendar.png",
+  FILE_UPLOAD: "fileUpload.png",
+  SIGNATURE: "signature.png",
 };
 
 export const CONDITIONAL_FORM_TYPES = {
@@ -26,6 +34,10 @@ export const CONDITIONAL_FORM_TYPES = {
   MULTIPLE_CHOICE: true,
   LINEAR_SCALE: false,
   EMBED_CONTENT: false,
+  EMAIL_INPUT: false,
+  DATE_TIME_INPUT: false,
+  FILE_UPLOAD: false,
+  SIGNATURE: false,
 };
 
 export const USER_SIDE_FORM_TYPES = {
@@ -36,6 +48,10 @@ export const USER_SIDE_FORM_TYPES = {
   "Multiple Choice": "MULTIPLE_CHOICE",
   "Linear Scale": "LINEAR_SCALE",
   "Embed Content": "EMBED_CONTENT",
+  "Email Input": "EMAIL_INPUT",
+  "Date Time Input": "DATE_TIME_INPUT",
+  "File Upload": "FILE_UPLOAD",
+  Signature: "SIGNATURE",
 };
 
 export const getFormType = (type) => {

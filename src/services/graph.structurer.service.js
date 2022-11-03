@@ -117,6 +117,7 @@ export default class GraphStructureService {
     initialGroupStructure.groupsConnectedTo = [];
     initialGroupStructure.previousConnections = [previousConnection];
     initialGroupStructure.warning = "";
+    initialGroupStructure.repeat = initialFormValues.repeat || false;
     return initialGroupStructure;
   }
 

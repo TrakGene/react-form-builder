@@ -10,11 +10,15 @@ import {
   getUserSideFormTypes,
 } from "../../../../constants/formTypes";
 import CheckboxInput from "../formTypes/CheckboxInput/CheckboxInput";
+import DateTimeInput from "../formTypes/DateTimeInput/DateTimeInput";
 import Dropdown from "../formTypes/Dropdown/Dropdown";
+import EmailInput from "../formTypes/EmailInput/EmailInput";
 import EmbedContent from "../formTypes/EmbedContent/EmbedContent";
+import FileUpload from "../formTypes/FileUplaod/FileUpload";
 import LinearScale from "../formTypes/LinearScale/LinearScale";
 import MultipleChoice from "../formTypes/MultipleChoice/MultipleChoice";
 import ParaInput from "../formTypes/ParaInput/ParaInput";
+import Signature from "../formTypes/Signature/Signature";
 
 // Components
 import TextInput from "../formTypes/TextInput/TextInput";
@@ -62,6 +66,18 @@ function AddFormElement() {
       )}
       {formType === FORM_TYPES.EMBED_CONTENT && (
         <EmbedContent edit={popupContext.edit} />
+      )}
+      {formType === FORM_TYPES.EMAIL_INPUT && (
+        <EmailInput edit={popupContext.edit} />
+      )}
+      {formType === FORM_TYPES.DATE_TIME_INPUT && (
+        <DateTimeInput edit={popupContext.edit} />
+      )}
+      {formType === FORM_TYPES.FILE_UPLOAD && (
+        <FileUpload edit={popupContext.edit} />
+      )}
+      {formType === FORM_TYPES.SIGNATURE && (
+        <Signature edit={popupContext.edit} />
       )}
     </div>
   );

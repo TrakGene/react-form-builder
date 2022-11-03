@@ -3,7 +3,17 @@
   display: flex;
   width: 100%;
   height: 100%;
+  overflow: scroll;
   /* position: fixed; */
+}
+
+.FormToolsInnerContainer {
+  max-height: 550px;
+  min-height: 100px;
+  overflow-y: scroll;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-bottom: 10px;
+  border-radius: 20px;
 }
 
 .FormCanvas {
