@@ -2,26 +2,26 @@ import { MenuItem, Select } from "@material-ui/core";
 import React, { useContext, useState } from "react";
 
 // ContextAPI
-import { PopupContext } from "../../../../App";
+import { PopupContext } from "../../../../App.jsx";
 
 // Constants
 import {
   FORM_TYPES,
   getUserSideFormTypes,
-} from "../../../../constants/formTypes";
-import CheckboxInput from "../formTypes/CheckboxInput/CheckboxInput";
-import DateTimeInput from "../formTypes/DateTimeInput/DateTimeInput";
-import Dropdown from "../formTypes/Dropdown/Dropdown";
-import EmailInput from "../formTypes/EmailInput/EmailInput";
-import EmbedContent from "../formTypes/EmbedContent/EmbedContent";
-import FileUpload from "../formTypes/FileUplaod/FileUpload";
-import LinearScale from "../formTypes/LinearScale/LinearScale";
-import MultipleChoice from "../formTypes/MultipleChoice/MultipleChoice";
-import ParaInput from "../formTypes/ParaInput/ParaInput";
-import Signature from "../formTypes/Signature/Signature";
+} from "../../../../constants/formTypes.js";
+import CheckboxInput from "../formTypes/CheckboxInput/CheckboxInput.jsx";
+import DateTimeInput from "../formTypes/DateTimeInput/DateTimeInput.jsx";
+import Dropdown from "../formTypes/Dropdown/Dropdown.jsx";
+import EmailInput from "../formTypes/EmailInput/EmailInput.jsx";
+import EmbedContent from "../formTypes/EmbedContent/EmbedContent.jsx";
+import FileUpload from "../formTypes/FileUplaod/FileUpload.jsx";
+import LinearScale from "../formTypes/LinearScale/LinearScale.jsx";
+import MultipleChoice from "../formTypes/MultipleChoice/MultipleChoice.jsx";
+import ParaInput from "../formTypes/ParaInput/ParaInput.jsx";
+import Signature from "../formTypes/Signature/Signature.jsx";
 
 // Components
-import TextInput from "../formTypes/TextInput/TextInput";
+import TextInput from "../formTypes/TextInput/TextInput.jsx";
 
 function AddFormElement() {
   const [popupContext] = useContext(PopupContext);

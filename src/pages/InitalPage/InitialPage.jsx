@@ -2,7 +2,7 @@
 import React, { useContext } from "react";
 
 // ContextAPI
-import { FormData } from "../../App";
+import { FormData } from "../../App.jsx";
 
 // Components
 import FormBuilderPage from "../../components/formBuilderPage";

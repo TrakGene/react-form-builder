@@ -1,5 +1,5 @@
 // ContextAPI
-import { FormData, PopupContext } from "../../../../../App";
+import { FormData, PopupContext } from "../../../../../App.jsx";
 
 // Libraries
 import React, { Fragment, useContext } from "react";
@@ -14,8 +14,8 @@ import TextField from "@material-ui/core/TextField";
 // styles
 import styles from "./FileUpload.module.css";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
-import { FORM_TYPES } from "../../../../../constants/formTypes";
-import GraphStructureService from "../../../../../services/graph.structurer.service";
+import { FORM_TYPES } from "../../../../../constants/formTypes.js";
+import GraphStructureService from "../../../../../services/graph.structurer.service.js";
 
 const initialValidationSchema = yup.object({
   label: yup

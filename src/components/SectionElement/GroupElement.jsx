@@ -5,9 +5,9 @@ import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
 
 // ContextAPI
-import { FormData, PopupContext } from "../../App";
-import { getFormType } from "../../constants/formTypes";
-import { USER_SIDE_TEMPLATE_TYPES } from "../../constants/templateTypes";
+import { FormData, PopupContext } from "../../App.jsx";
+import { getFormType } from "../../constants/formTypes.js";
+import { USER_SIDE_TEMPLATE_TYPES } from "../../constants/templateTypes.js";
 
 // Constants
 import { POPUP_TYPES } from "../../constants/popupTypes";
@@ -20,10 +20,10 @@ import AddIcon from "@mui/icons-material/Add";
 
 // Styles
 import styles from "./GroupElement.module.css";
-import GraphStructureService from "../../services/graph.structurer.service";
+import GraphStructureService from "../../services/graph.structurer.service.js";
 import { Alert } from "@mui/material";
 import { WarningAmberOutlined } from "@mui/icons-material";
-import { TEMPLATE } from "../../constants/templateTypes";
+import { TEMPLATE } from "../../constants/templateTypes.js";
 
 function GroupElement({ groupId }) {
   const gs = new GraphStructureService();

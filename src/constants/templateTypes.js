@@ -1,4 +1,4 @@
-import { FORM_TYPES } from "./formTypes";
+import { FORM_TYPES } from "./formTypes.js";
 
 export const TEMPLATE = {
   PERSONAL_INFO: [

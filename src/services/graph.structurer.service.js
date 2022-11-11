@@ -6,7 +6,7 @@ import {
 
 // Libraries
 import { v4 as uuidv4 } from "uuid";
-import { CONDITIONAL_FORM_TYPES, FORM_TYPES } from "../constants/formTypes";
+import { CONDITIONAL_FORM_TYPES, FORM_TYPES } from "../constants/formTypes.js";
 import _ from "lodash";
 
 // Dependencies

@@ -1,5 +1,5 @@
 // ContextAPI
-import { FormData, PopupContext } from "../../../../App";
+import { FormData, PopupContext } from "../../../../App.jsx";
 
 // Libraries
 import React, { Fragment, useContext } from "react";
@@ -14,7 +14,7 @@ import { Alert } from "@mui/material";
 import styles from "./AddGroup.module.css";
 
 // Dependencies
-import GraphStructureService from "../../../../services/graph.structurer.service";
+import GraphStructureService from "../../../../services/graph.structurer.service.js";
 import {
   Checkbox,
   FormControl,
@@ -26,7 +26,7 @@ import {
   Select,
 } from "@material-ui/core";
 import { useState } from "react";
-import { FORM_TYPES } from "../../../../constants/formTypes";
+import { FORM_TYPES } from "../../../../constants/formTypes.js";
 import { useEffect } from "react";
 import { WarningAmberOutlined } from "@mui/icons-material";
 

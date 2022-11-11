@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
-import { PopupContext } from "../../App";
+import { PopupContext } from "../../App.jsx";
 
 // MUI
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 
 // Popup Types
-import AddGroup from "./types/AddGroup/AddGroup";
-import AddFormElement from "./types/AddFormElement/AddFormElement";
+import AddGroup from "./types/AddGroup/AddGroup.jsx";
+import AddFormElement from "./types/AddFormElement/AddFormElement.jsx";
 
 // Constants
-import { POPUP_TYPES } from "../../constants/popupTypes";
+import { POPUP_TYPES } from "../../constants/popupTypes.js";
 
 // Popup Styles
 const style = {

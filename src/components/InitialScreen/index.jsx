@@ -1,5 +1,5 @@
 // ContextAPI
-import { FormData } from "../../App";
+import { FormData } from "../../App.jsx";
 
 // Libraries
 import React, { Fragment, useContext } from "react";
@@ -14,7 +14,7 @@ import TextField from "@material-ui/core/TextField";
 import styles from "./InitialScreen.module.css";
 
 // Dependencies
-import GraphStructureService from "../../services/graph.structurer.service";
+import GraphStructureService from "../../services/graph.structurer.service.js";
 
 const formFields = [
   { id: "FormTitle", label: "Form Title", type: "text" },

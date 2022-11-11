@@ -8,18 +8,21 @@ import {
 } from "interweave-autolink";
 
 // ContextAPI
-import { FormData, PopupContext } from "../../App";
+import { FormData, PopupContext } from "../../App.jsx";
 
 // Icons
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 // Constants
-import { FORM_TYPES, getUserSideFormTypeById } from "../../constants/formTypes";
+import {
+  FORM_TYPES,
+  getUserSideFormTypeById,
+} from "../../constants/formTypes.js";
 import { POPUP_TYPES } from "../../constants/popupTypes";
 
 // Services
-import GraphStructureService from "../../services/graph.structurer.service";
+import GraphStructureService from "../../services/graph.structurer.service.js";
 
 function FormComponent({ element, groupId }) {
   const gs = new GraphStructureService();

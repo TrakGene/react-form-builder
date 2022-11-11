@@ -1,7 +1,7 @@
 import React from "react";
 // Components
-import Tool from "../Tool/Tool";
-import Canvas from "../Canvas/Canvas";
+import Tool from "../Tool/Tool.jsx";
+import Canvas from "../Canvas/Canvas.jsx";
 
 // Styles
 import styles from "./FormBuilderTool.module.css";
@@ -10,11 +10,11 @@ import styles from "./FormBuilderTool.module.css";
 import {
   FORM_TYPE_ICON,
   getUserSideFormTypes,
-} from "../../constants/formTypes";
+} from "../../constants/formTypes.js";
 import {
   getUserSideTemplateTypes,
   TEMPLATE_TYPES_ICON,
-} from "../../constants/templateTypes";
+} from "../../constants/templateTypes.js";
 import { Button } from "@mui/material";
 
 // Icons

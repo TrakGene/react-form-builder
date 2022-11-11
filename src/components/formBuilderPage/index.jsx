@@ -1,11 +1,12 @@
 // Libraries
+import React from "react";
 import { Fragment } from "react";
 
 // Styles
 import styles from "./FormBuilderPage.module.css";
 
 // Components
-import FormBuilderTool from "../FormBuilderTool";
+import FormBuilderTool from "../FormBuilderTool/index.jsx";
 
 function FormBuilderPage() {
   return (
