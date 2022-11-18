@@ -1,54 +1,91 @@
 import { FORM_TYPES } from "./formTypes.js";
 
 export const TEMPLATE = {
-  PERSONAL_INFO: [
+  DEMOGRAPHICS: [
     {
-      label: "First Name",
+      label: "Title",
+      isRequired: true,
+      isIdentifier: false,
+      type: FORM_TYPES.DROPDOWN,
+      options: ["Mr", "Miss", "Mrs", "Ms", "Dr", "Professor"],
+    },
+    {
+      label: "Firstname",
       isRequired: true,
       isIdentifier: false,
       type: FORM_TYPES.SHORT_TEXT,
     },
     {
-      label: "Middle Name",
+      label: "Surname",
       isRequired: true,
       isIdentifier: false,
       type: FORM_TYPES.SHORT_TEXT,
     },
     {
-      label: "Last Name",
+      label: "Sex",
       isRequired: true,
       isIdentifier: false,
-      type: FORM_TYPES.SHORT_TEXT,
+      type: FORM_TYPES.DROPDOWN,
+      options: ["Male", "Female"],
     },
     {
-      label: "DoB",
-      isRequired: true,
-      isIdentifier: false,
-      type: FORM_TYPES.DATE_TIME_INPUT,
-    },
-    {
-      label: "Gender",
+      label: "Date of Birth",
       isRequired: true,
       isIdentifier: true,
-      options: ["Male", "Female", "Others"],
-      type: FORM_TYPES.MULTIPLE_CHOICE,
+      type: FORM_TYPES.DATE_TIME_INPUT,
     },
   ],
-  DOCTOR_INFO: [
+  ADDRESS: [
     {
-      label: "Name",
+      label: "Address Line 1",
       isRequired: true,
       isIdentifier: false,
       type: FORM_TYPES.SHORT_TEXT,
     },
     {
-      label: "Hospital",
+      label: "Address Line 2",
       isRequired: true,
       isIdentifier: false,
       type: FORM_TYPES.SHORT_TEXT,
     },
     {
-      label: "Doctor Id",
+      label: "Town/City",
+      isRequired: true,
+      isIdentifier: false,
+      type: FORM_TYPES.SHORT_TEXT,
+    },
+    {
+      label: "Suburb/County",
+      isRequired: true,
+      isIdentifier: false,
+      type: FORM_TYPES.SHORT_TEXT,
+    },
+    {
+      label: "Post Code",
+      isRequired: true,
+      isIdentifier: false,
+      type: FORM_TYPES.SHORT_TEXT,
+    },
+    {
+      label: "Country",
+      isRequired: true,
+      isIdentifier: false,
+      type: FORM_TYPES.SHORT_TEXT,
+    },
+    {
+      label: "Home Phone",
+      isRequired: false,
+      isIdentifier: false,
+      type: FORM_TYPES.SHORT_TEXT,
+    },
+    {
+      label: "Mobile Phone",
+      isRequired: true,
+      isIdentifier: false,
+      type: FORM_TYPES.SHORT_TEXT,
+    },
+    {
+      label: "Email",
       isRequired: true,
       isIdentifier: false,
       type: FORM_TYPES.SHORT_TEXT,
@@ -57,17 +94,17 @@ export const TEMPLATE = {
 };
 
 export const TEMPLATE_TYPES = {
-  PERSONAL_INFO: "PERSONAL_INFO",
-  DOCTOR_INFO: "DOCTOR_INFO",
+  DEMOGRAPHICS: "DEMOGRAPHICS",
+  ADDRESS: "ADDRESS",
 };
 
 export const TEMPLATE_TYPES_ICON = {
-  PERSONAL_INFO: "personalInfo.png",
-  DOCTOR_INFO: "doctor.png",
+  DEMOGRAPHICS: "personalInfo.png",
+  ADDRESS: "doctor.png",
 };
 export const USER_SIDE_TEMPLATE_TYPES = {
-  "Basic Personal Info": "PERSONAL_INFO",
-  "Doctor Info": "DOCTOR_INFO",
+  Demographics: "DEMOGRAPHICS",
+  Address: "ADDRESS",
 };
 
 export const getTemplateType = (type) => {
