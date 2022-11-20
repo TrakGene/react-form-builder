@@ -44,7 +44,8 @@ function InitialScreen() {
 
   // handleSubmit
   const handleFormSubmit = async (values) => {
-    setFormData(await gs.initializeGraphForm(values));
+    const reset = true;
+    setFormData(await gs.initializeGraphForm(values, reset));
   };
 
   // Formik

@@ -121,12 +121,16 @@ export default class GraphStructureService {
     return initialGroupStructure;
   }
 
-  async initializeGraphForm(initialFormValues) {
+  async initializeGraphForm(initialFormValues, reset) {
     let initialStructure = INITIAL_FORM_STRUCTURE;
     const newGroup = await this.initializeEmptyGroup({
       initialFormValues,
       previousConnection: null,
     });
+    // Added a reset method to reinitialize to form schema to empty when comming from different component
+    if (reset) {
+      initialStructure.schema = {};
+    }
     initialStructure.title = initialFormValues.FormTitle;
     initialStructure.description = initialFormValues.FormDescription;
     initialStructure.startingGroupId = newGroup.id;

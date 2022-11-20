@@ -13,8 +13,8 @@ export const FormData = createContext({});
 export const VisitedNodeContext = createContext({});
 export const PopupContext = createContext({ show: false });
 
-function App() {
-  const formData = useState({});
+function App({ schema }) {
+  const formData = useState(schema ? schema : {});
   const visitedContext = useState({});
   const popupContext = useState({ show: false });
   return (
